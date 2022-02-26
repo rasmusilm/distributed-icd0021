@@ -9,8 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using DAL.App;
 using Domain.App;
 
-namespace WebApp.Areas_Admin_Controllers
+namespace WebApp.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ComplexityController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,13 +21,13 @@ namespace WebApp.Areas_Admin_Controllers
             _context = context;
         }
 
-        // GET: Complexity
+        // GET: Admin/Complexity
         public async Task<IActionResult> Index()
         {
             return View(await _context.Complexities.ToListAsync());
         }
 
-        // GET: Complexity/Details/5
+        // GET: Admin/Complexity/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -44,13 +45,13 @@ namespace WebApp.Areas_Admin_Controllers
             return View(complexity);
         }
 
-        // GET: Complexity/Create
+        // GET: Admin/Complexity/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Complexity/Create
+        // POST: Admin/Complexity/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -67,7 +68,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(complexity);
         }
 
-        // GET: Complexity/Edit/5
+        // GET: Admin/Complexity/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -83,7 +84,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(complexity);
         }
 
-        // POST: Complexity/Edit/5
+        // POST: Admin/Complexity/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -118,7 +119,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(complexity);
         }
 
-        // GET: Complexity/Delete/5
+        // GET: Admin/Complexity/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -136,7 +137,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(complexity);
         }
 
-        // POST: Complexity/Delete/5
+        // POST: Admin/Complexity/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

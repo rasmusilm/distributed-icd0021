@@ -9,8 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using DAL.App;
 using Domain.App;
 
-namespace WebApp.Areas_Admin_Controllers
+namespace WebApp.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ProjectIdeaController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,14 +21,14 @@ namespace WebApp.Areas_Admin_Controllers
             _context = context;
         }
 
-        // GET: ProjectIdea
+        // GET: Admin/ProjectIdea
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.ProjectIdeas.Include(p => p.Complexity).Include(p => p.Difficulty).Include(p => p.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: ProjectIdea/Details/5
+        // GET: Admin/ProjectIdea/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -48,7 +49,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(projectIdea);
         }
 
-        // GET: ProjectIdea/Create
+        // GET: Admin/ProjectIdea/Create
         public IActionResult Create()
         {
             ViewData["ComplexityId"] = new SelectList(_context.Complexities, "Id", "Id");
@@ -57,7 +58,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View();
         }
 
-        // POST: ProjectIdea/Create
+        // POST: Admin/ProjectIdea/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -77,7 +78,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(projectIdea);
         }
 
-        // GET: ProjectIdea/Edit/5
+        // GET: Admin/ProjectIdea/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -96,7 +97,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(projectIdea);
         }
 
-        // POST: ProjectIdea/Edit/5
+        // POST: Admin/ProjectIdea/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -134,7 +135,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(projectIdea);
         }
 
-        // GET: ProjectIdea/Delete/5
+        // GET: Admin/ProjectIdea/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -155,7 +156,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(projectIdea);
         }
 
-        // POST: ProjectIdea/Delete/5
+        // POST: Admin/ProjectIdea/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

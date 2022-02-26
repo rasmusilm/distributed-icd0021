@@ -10,7 +10,7 @@ public class ProjectIdea : IBaseItem
     public Guid Id { get; set; }
     public string Title { get; set; } = "";
     public string Explanation { get; set; } = "";
-    public DateTime PostedAt { get; set; } = DateTime.Now;
+    public DateTime PostedAt { get; set; }
     public bool Edited { get; set; } = false;
     public bool Deleted { get; set; } = false;
     

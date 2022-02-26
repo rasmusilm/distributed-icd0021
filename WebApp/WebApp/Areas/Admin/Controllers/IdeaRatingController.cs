@@ -9,8 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using DAL.App;
 using Domain.App;
 
-namespace WebApp.Areas_Admin_Controllers
+namespace WebApp.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class IdeaRatingController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,14 +21,14 @@ namespace WebApp.Areas_Admin_Controllers
             _context = context;
         }
 
-        // GET: IdeaRating
+        // GET: Admin/IdeaRating
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.IdeaRatings.Include(i => i.ProjectIdea).Include(i => i.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: IdeaRating/Details/5
+        // GET: Admin/IdeaRating/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -47,7 +48,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(ideaRating);
         }
 
-        // GET: IdeaRating/Create
+        // GET: Admin/IdeaRating/Create
         public IActionResult Create()
         {
             ViewData["ProjectIdeaId"] = new SelectList(_context.ProjectIdeas, "Id", "Explanation");
@@ -55,7 +56,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View();
         }
 
-        // POST: IdeaRating/Create
+        // POST: Admin/IdeaRating/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -74,7 +75,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(ideaRating);
         }
 
-        // GET: IdeaRating/Edit/5
+        // GET: Admin/IdeaRating/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -92,7 +93,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(ideaRating);
         }
 
-        // POST: IdeaRating/Edit/5
+        // POST: Admin/IdeaRating/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -129,7 +130,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(ideaRating);
         }
 
-        // GET: IdeaRating/Delete/5
+        // GET: Admin/IdeaRating/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -149,7 +150,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(ideaRating);
         }
 
-        // POST: IdeaRating/Delete/5
+        // POST: Admin/IdeaRating/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

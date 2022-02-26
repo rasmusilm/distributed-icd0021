@@ -9,8 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using DAL.App;
 using Domain.App;
 
-namespace WebApp.Areas_Admin_Controllers
+namespace WebApp.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ProjectTaskController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,14 +21,14 @@ namespace WebApp.Areas_Admin_Controllers
             _context = context;
         }
 
-        // GET: ProjectTask
+        // GET: Admin/ProjectTask
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.ProjectTasks.Include(p => p.ProjectTaskStatus);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: ProjectTask/Details/5
+        // GET: Admin/ProjectTask/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -46,14 +47,14 @@ namespace WebApp.Areas_Admin_Controllers
             return View(projectTask);
         }
 
-        // GET: ProjectTask/Create
+        // GET: Admin/ProjectTask/Create
         public IActionResult Create()
         {
             ViewData["ProjectTaskStatusId"] = new SelectList(_context.ProjectTaskStatus, "Id", "Name");
             return View();
         }
 
-        // POST: ProjectTask/Create
+        // POST: Admin/ProjectTask/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -71,7 +72,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(projectTask);
         }
 
-        // GET: ProjectTask/Edit/5
+        // GET: Admin/ProjectTask/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -88,7 +89,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(projectTask);
         }
 
-        // POST: ProjectTask/Edit/5
+        // POST: Admin/ProjectTask/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -124,7 +125,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(projectTask);
         }
 
-        // GET: ProjectTask/Delete/5
+        // GET: Admin/ProjectTask/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -143,7 +144,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(projectTask);
         }
 
-        // POST: ProjectTask/Delete/5
+        // POST: Admin/ProjectTask/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

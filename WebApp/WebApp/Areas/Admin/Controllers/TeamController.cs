@@ -9,8 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using DAL.App;
 using Domain.App;
 
-namespace WebApp.Areas_Admin_Controllers
+namespace WebApp.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class TeamController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,13 +21,13 @@ namespace WebApp.Areas_Admin_Controllers
             _context = context;
         }
 
-        // GET: Team
+        // GET: Admin/Team
         public async Task<IActionResult> Index()
         {
             return View(await _context.Teams.ToListAsync());
         }
 
-        // GET: Team/Details/5
+        // GET: Admin/Team/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -44,13 +45,13 @@ namespace WebApp.Areas_Admin_Controllers
             return View(team);
         }
 
-        // GET: Team/Create
+        // GET: Admin/Team/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Team/Create
+        // POST: Admin/Team/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -67,7 +68,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(team);
         }
 
-        // GET: Team/Edit/5
+        // GET: Admin/Team/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -83,7 +84,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(team);
         }
 
-        // POST: Team/Edit/5
+        // POST: Admin/Team/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -118,7 +119,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(team);
         }
 
-        // GET: Team/Delete/5
+        // GET: Admin/Team/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -136,7 +137,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(team);
         }
 
-        // POST: Team/Delete/5
+        // POST: Admin/Team/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

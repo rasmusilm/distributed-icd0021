@@ -9,8 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using DAL.App;
 using Domain.App;
 
-namespace WebApp.Areas_Admin_Controllers
+namespace WebApp.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class FeedTagsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,14 +21,14 @@ namespace WebApp.Areas_Admin_Controllers
             _context = context;
         }
 
-        // GET: FeedTags
+        // GET: Admin/FeedTags
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.FeedTags.Include(f => f.IdeaFeedProfile).Include(f => f.Tag);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: FeedTags/Details/5
+        // GET: Admin/FeedTags/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -47,7 +48,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(feedTag);
         }
 
-        // GET: FeedTags/Create
+        // GET: Admin/FeedTags/Create
         public IActionResult Create()
         {
             ViewData["IdeaFeedProfileId"] = new SelectList(_context.IdeaFeedProfiles, "Id", "Name");
@@ -55,7 +56,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View();
         }
 
-        // POST: FeedTags/Create
+        // POST: Admin/FeedTags/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -74,7 +75,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(feedTag);
         }
 
-        // GET: FeedTags/Edit/5
+        // GET: Admin/FeedTags/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -92,7 +93,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(feedTag);
         }
 
-        // POST: FeedTags/Edit/5
+        // POST: Admin/FeedTags/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -129,7 +130,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(feedTag);
         }
 
-        // GET: FeedTags/Delete/5
+        // GET: Admin/FeedTags/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -149,7 +150,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(feedTag);
         }
 
-        // POST: FeedTags/Delete/5
+        // POST: Admin/FeedTags/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

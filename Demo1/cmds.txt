@@ -1,0 +1,2 @@
+dotnet ef migrations add --project DAL.app --startup-project "Web app" InitialCreate
+dotnet ef database update --project DAL.app --startup-project "Web app"

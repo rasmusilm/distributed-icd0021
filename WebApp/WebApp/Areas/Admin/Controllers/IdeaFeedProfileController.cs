@@ -9,8 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using DAL.App;
 using Domain.App;
 
-namespace WebApp.Areas_Admin_Controllers
+namespace WebApp.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class IdeaFeedProfileController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,14 +21,14 @@ namespace WebApp.Areas_Admin_Controllers
             _context = context;
         }
 
-        // GET: IdeaFeedProfile
+        // GET: Admin/IdeaFeedProfile
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.IdeaFeedProfiles.Include(i => i.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: IdeaFeedProfile/Details/5
+        // GET: Admin/IdeaFeedProfile/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -46,14 +47,14 @@ namespace WebApp.Areas_Admin_Controllers
             return View(ideaFeedProfile);
         }
 
-        // GET: IdeaFeedProfile/Create
+        // GET: Admin/IdeaFeedProfile/Create
         public IActionResult Create()
         {
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
-        // POST: IdeaFeedProfile/Create
+        // POST: Admin/IdeaFeedProfile/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -71,7 +72,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(ideaFeedProfile);
         }
 
-        // GET: IdeaFeedProfile/Edit/5
+        // GET: Admin/IdeaFeedProfile/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -88,7 +89,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(ideaFeedProfile);
         }
 
-        // POST: IdeaFeedProfile/Edit/5
+        // POST: Admin/IdeaFeedProfile/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -124,7 +125,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(ideaFeedProfile);
         }
 
-        // GET: IdeaFeedProfile/Delete/5
+        // GET: Admin/IdeaFeedProfile/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -143,7 +144,7 @@ namespace WebApp.Areas_Admin_Controllers
             return View(ideaFeedProfile);
         }
 
-        // POST: IdeaFeedProfile/Delete/5
+        // POST: Admin/IdeaFeedProfile/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
