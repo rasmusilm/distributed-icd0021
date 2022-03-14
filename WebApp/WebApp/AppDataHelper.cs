@@ -47,6 +47,90 @@ public class AppDataHelper
             };
             context.TestItems.Add(test);
             context.SaveChanges();
+
+            var tag1 = new Tag
+            {
+                Tagname =
+                {
+                    ["et-EE"] = "Püüton",
+                    ["en-GB"] = "Python"
+                }
+            };
+            context.Tags.Add(tag1);
+            context.SaveChanges();
+            var tag2 = new Tag
+            {
+                Tagname =
+                {
+                    ["en-GB"] = "C#"
+                }
+            };
+            context.Tags.Add(tag2);
+            var tag3 = new Tag
+            {
+                Tagname =
+                {
+                    ["et-EE"] = "Veebirakendus",
+                    ["en-GB"] = "WebApp"
+                }
+            };
+            context.Tags.Add(tag3);
+            var tag4 = new Tag
+            {
+                Tagname =
+                {
+                    ["et-EE"] = "Konsoolirakendus",
+                    ["en-GB"] = "Console App"
+                }
+            };
+            context.Tags.Add(tag4);
+            var tag5 = new Tag
+            {
+                Tagname =
+                {
+                    ["et-EE"] = "Mobiilirakendus",
+                    ["en-GB"] = "Mobile App"
+                }
+            };
+            context.Tags.Add(tag5);
+            var tag6 = new Tag
+            {
+                Tagname =
+                {
+                    ["et-EE"] = "Androidi rakendus",
+                    ["en-GB"] = "Android App"
+                }
+            };
+            context.Tags.Add(tag6);
+            var tag7 = new Tag
+            {
+                Tagname =
+                {
+                    ["et-EE"] = "iOS rakendus",
+                    ["en-GB"] = "iOS App"
+                }
+            };
+            context.Tags.Add(tag7);
+            var tag8 = new Tag
+            {
+                Tagname =
+                {
+                    ["et-EE"] = "Töölauarakendus",
+                    ["en-GB"] = "Desktop App"
+                }
+            };
+            context.Tags.Add(tag8);
+            var tag9 = new Tag
+            {
+                Tagname =
+                {
+                    ["en-GB"] = "Static webpage",
+                    ["et-EE"] = "Staatiline veebileht"
+                }
+            };
+            context.Tags.Add(tag9);
+            
+            context.SaveChanges();
         }
     }
 }

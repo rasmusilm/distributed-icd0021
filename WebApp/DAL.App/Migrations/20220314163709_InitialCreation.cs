@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using App.Base;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -92,7 +92,7 @@ namespace DAL.App.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Tagname = table.Column<string>(type: "text", nullable: false)
+                    Tagname = table.Column<LangStr>(type: "jsonb", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -116,7 +116,7 @@ namespace DAL.App.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<Dictionary<string, string>>(type: "jsonb", nullable: false)
+                    Name = table.Column<LangStr>(type: "jsonb", nullable: false)
                 },
                 constraints: table =>
                 {
