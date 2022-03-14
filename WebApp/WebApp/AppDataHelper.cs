@@ -129,6 +129,62 @@ public class AppDataHelper
                 }
             };
             context.Tags.Add(tag9);
+
+            var difficulty = new Difficulty
+            {
+                Name =
+                {
+                    ["en-GB"] = "Easy",
+                    ["et-EE"] = "Kerge"
+                }
+            };
+            context.Difficulties.Add(difficulty);
+            var difficulty1 = new Difficulty
+            {
+                Name =
+                {
+                    ["en-GB"] = "Intermediate",
+                    ["et-EE"] = "Keskmine"
+                }
+            };
+            context.Difficulties.Add(difficulty1);
+            var difficulty2 = new Difficulty
+            {
+                Name =
+                {
+                    ["en-GB"] = "Hard",
+                    ["et-EE"] = "Raske"
+                }
+            };
+            context.Difficulties.Add(difficulty2);
+            
+            var complexity = new Complexity
+            {
+                Name =
+                {
+                    ["en-GB"] = "Simple",
+                    ["et-EE"] = "Lihtne"
+                }
+            };
+            context.Complexities.Add(complexity);
+            var complexity1 = new Complexity
+            {
+                Name =
+                {
+                    ["en-GB"] = "Small app",
+                    ["et-EE"] = "Väike rakendus"
+                }
+            };
+            context.Complexities.Add(complexity1);
+            var complexity2 = new Complexity
+            {
+                Name =
+                {
+                    ["en-GB"] = "Multy-part system",
+                    ["et-EE"] = "Mitmeosaline süsteem"
+                }
+            };
+            context.Complexities.Add(complexity2);
             
             context.SaveChanges();
         }
