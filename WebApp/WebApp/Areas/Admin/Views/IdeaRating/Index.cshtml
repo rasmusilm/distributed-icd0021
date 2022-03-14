@@ -1,4 +1,4 @@
-@model IEnumerable<Domain.App.IdeaRating>
+@model IEnumerable<App.Domain.IdeaRating>
 
 @{
     ViewData["Title"] = "Index";
@@ -31,10 +31,10 @@
                 @Html.DisplayFor(modelItem => item.Rating)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User!.Id)
+                @Html.DisplayFor(modelItem => item.User.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProjectIdea!.Explanation)
+                @Html.DisplayFor(modelItem => item.ProjectIdea.Explanation)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

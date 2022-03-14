@@ -1,4 +1,4 @@
-@model IEnumerable<Domain.App.IdeaInfeed>
+@model IEnumerable<App.Domain.IdeaInfeed>
 
 @{
     ViewData["Title"] = "Index";
@@ -25,10 +25,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.IdeaFeedProfile!.Name)
+                @Html.DisplayFor(modelItem => item.IdeaFeedProfile.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProjectIdea!.Explanation)
+                @Html.DisplayFor(modelItem => item.ProjectIdea.Explanation)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

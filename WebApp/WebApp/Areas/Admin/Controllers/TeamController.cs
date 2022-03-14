@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using App.Domain;
 using DAL.App;
-using Domain.App;
 
 namespace WebApp.Areas.Admin.Controllers
 {

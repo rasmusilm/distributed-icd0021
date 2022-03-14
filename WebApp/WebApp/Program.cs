@@ -1,7 +1,11 @@
+using System.Globalization;
+using App.Domain.Identity;
 using DAL.App;
-using Domain.App.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using WebApp;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +28,37 @@ builder.Services.AddIdentity<User, UserRole>(options =>
 
 builder.Services.AddControllersWithViews();
 
+var supportedCultures = builder.Configuration
+    .GetSection("SupportedCultures")
+    .GetChildren()
+    .Select(x => new CultureInfo(x.Value))
+    .ToArray();
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    // datetime and currency support
+    options.SupportedCultures = supportedCultures;
+    // UI translated strings
+    options.SupportedUICultures = supportedCultures;
+    // if nothing is found, use this
+    options.DefaultRequestCulture =
+        new RequestCulture(builder.Configuration["DefaultCulture"], builder.Configuration["DefaultCulture"]);
+    options.SetDefaultCulture(builder.Configuration["DefaultCulture"]);
+
+    options.RequestCultureProviders = new List<IRequestCultureProvider>
+    {
+        // Order is important, its in which order they will be evaluated
+        // add support for ?culture=ru-RU
+        new QueryStringRequestCultureProvider(),
+        new CookieRequestCultureProvider()
+    };
+});
+
+//================================== Pipeline setupu adn start of web =====================
+
 var app = builder.Build();
+
+AppDataHelper.SetupAppData(app, app.Environment, app.Configuration);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -42,6 +76,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseRequestLocalization(options: 
+    app.Services.GetService<IOptions<RequestLocalizationOptions>>()?.Value!);
 
 app.UseAuthentication();
 app.UseAuthorization();
