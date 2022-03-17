@@ -8,6 +8,8 @@ namespace App.Domain;
 public class Difficulty : IBaseItem
 {
     public Guid Id { get; set; }
+    
+    [Display( ResourceType = typeof(App.Resourses.App.Domain.Difficulty), Name = nameof(App.Resourses.App.Domain.Difficulty.Name))]
     [Column(TypeName = "jsonb")]
     public LangStr Name { get; set; } = new ();
 
