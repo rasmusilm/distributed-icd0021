@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using App.Domain.Base;
 
 namespace App.Domain;
@@ -5,7 +6,9 @@ namespace App.Domain;
 public class ProjectTaskStatus : IBaseItem
 {
     public Guid Id { get; set; }
+    [Display( ResourceType = typeof(App.Resourses.App.Domain.ProjectTaskStatus), Name = nameof(App.Resourses.App.Domain.ProjectTaskStatus.Name))]
     public string Name { get; set; } = default!;
+    [Display( ResourceType = typeof(App.Resourses.App.Domain.ProjectTaskStatus), Name = nameof(App.Resourses.App.Domain.ProjectTaskStatus.Description))]
     public string? Description { get; set; }
     
     public ICollection<ProjectTask>? ProjectTasks { get; set; }

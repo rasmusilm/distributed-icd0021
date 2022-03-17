@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using App.Domain.Base;
 using App.Domain.Enums;
 using App.Domain.Identity;
@@ -8,11 +9,17 @@ public class UserInProject : IBaseItem
 {
     public Guid Id { get; set; }
 
+    [Display( ResourceType = typeof(App.Resourses.App.Domain.UserInProject), Name = nameof(App.Resourses.App.Domain.UserInProject.RoleInProject))]
     public ERoleInProject RoleInProject { get; set; } = ERoleInProject.Owner;
 
+    [Display( ResourceType = typeof(App.Resourses.App.Domain.UserInProject), Name = nameof(App.Resourses.App.Domain.UserInProject.UserId))]
     public Guid UserId { get; set; }
+    
+    [Display( ResourceType = typeof(App.Resourses.App.Domain.UserInProject), Name = nameof(App.Resourses.App.Domain.UserInProject.User))]
     public User? User { get; set; }
 
+    [Display( ResourceType = typeof(App.Resourses.App.Domain.UserInProject), Name = nameof(App.Resourses.App.Domain.UserInProject.ProjectId))]
     public Guid ProjectId { get; set; }
+    [Display( ResourceType = typeof(App.Resourses.App.Domain.UserInProject), Name = nameof(App.Resourses.App.Domain.UserInProject.Project))]
     public Project? Project { get; set; }
 }

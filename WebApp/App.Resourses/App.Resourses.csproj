@@ -59,6 +59,34 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>IdeaTag.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="App.Domain\ProjectTask.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ProjectTask.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="App.Domain\ProjectTaskStatus.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ProjectTaskStatus.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="App.Domain\RoleInTeam.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>RoleInTeam.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="App.Domain\Team.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Team.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="App.Domain\TeamInProject.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>TeamInProject.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="App.Domain\UserInProject.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>UserInProject.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="App.Domain\UserInTeam.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>UserInTeam.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -126,6 +154,41 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>IdeaTag.resx</DependentUpon>
+      </Compile>
+      <Compile Update="App.Domain\ProjectTask.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ProjectTask.resx</DependentUpon>
+      </Compile>
+      <Compile Update="App.Domain\ProjectTaskStatus.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ProjectTaskStatus.resx</DependentUpon>
+      </Compile>
+      <Compile Update="App.Domain\RoleInTeam.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>RoleInTeam.resx</DependentUpon>
+      </Compile>
+      <Compile Update="App.Domain\Team.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Team.resx</DependentUpon>
+      </Compile>
+      <Compile Update="App.Domain\TeamInProject.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>TeamInProject.resx</DependentUpon>
+      </Compile>
+      <Compile Update="App.Domain\UserInProject.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>UserInProject.resx</DependentUpon>
+      </Compile>
+      <Compile Update="App.Domain\UserInTeam.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>UserInTeam.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
