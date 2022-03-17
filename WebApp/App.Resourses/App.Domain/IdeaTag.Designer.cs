@@ -22,24 +22,24 @@ namespace App.Resourses.App.Domain {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Project {
+    internal class IdeaTag {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Project() {
+        internal IdeaTag() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("App.Resourses.App.Domain.Project", typeof(Project).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("App.Resourses.App.Domain.IdeaTag", typeof(IdeaTag).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace App.Resourses.App.Domain {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,36 +61,9 @@ namespace App.Resourses.App.Domain {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deadline.
-        /// </summary>
-        public static string Deadline {
-            get {
-                return ResourceManager.GetString("Deadline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Description.
-        /// </summary>
-        public static string Description {
-            get {
-                return ResourceManager.GetString("Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name.
-        /// </summary>
-        public static string Name {
-            get {
-                return ResourceManager.GetString("Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Project Idea.
         /// </summary>
-        public static string ProjectIdea {
+        internal static string ProjectIdea {
             get {
                 return ResourceManager.GetString("ProjectIdea", resourceCulture);
             }
@@ -99,27 +72,27 @@ namespace App.Resourses.App.Domain {
         /// <summary>
         ///   Looks up a localized string similar to Project Idea Id.
         /// </summary>
-        public static string ProjectIdeaId {
+        internal static string ProjectIdeaId {
             get {
                 return ResourceManager.GetString("ProjectIdeaId", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User.
+        ///   Looks up a localized string similar to Tag.
         /// </summary>
-        public static string User {
+        internal static string Tag {
             get {
-                return ResourceManager.GetString("User", resourceCulture);
+                return ResourceManager.GetString("Tag", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User Id.
+        ///   Looks up a localized string similar to Tag Id.
         /// </summary>
-        public static string UserId {
+        internal static string TagId {
             get {
-                return ResourceManager.GetString("UserId", resourceCulture);
+                return ResourceManager.GetString("TagId", resourceCulture);
             }
         }
     }

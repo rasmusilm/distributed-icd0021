@@ -14,4 +14,34 @@
     <data name="Title" xml:space="preserve">
         <value>Pealkiri</value>
     </data>
+    <data name="Explanation" xml:space="preserve">
+        <value>Selgitus</value>
+    </data>
+    <data name="PostedAt" xml:space="preserve">
+        <value>Postitatud</value>
+    </data>
+    <data name="Edited" xml:space="preserve">
+        <value>Muudetud</value>
+    </data>
+    <data name="Deleted" xml:space="preserve">
+        <value>Kustutatud</value>
+    </data>
+    <data name="User" xml:space="preserve">
+        <value>Kasutaja</value>
+    </data>
+    <data name="UserId" xml:space="preserve">
+        <value>Kasutaja Id</value>
+    </data>
+    <data name="Difficulty" xml:space="preserve">
+        <value>Raskusaste</value>
+    </data>
+    <data name="DifficultyId" xml:space="preserve">
+        <value>Raskusaste Id</value>
+    </data>
+    <data name="Complexity" xml:space="preserve">
+        <value>Keerukus</value>
+    </data>
+    <data name="ComplexityId" xml:space="preserve">
+        <value>Keerukus id</value>
+    </data>
 </root>

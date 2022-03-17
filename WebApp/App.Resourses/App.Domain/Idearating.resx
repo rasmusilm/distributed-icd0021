@@ -18,37 +18,19 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="Title" xml:space="preserve">
-        <value>Title</value>
+    <data name="Rating" xml:space="preserve">
+        <value>Rating</value>
     </data>
-    <data name="Explanation" xml:space="preserve">
-        <value>Explanation</value>
-    </data>
-    <data name="PostedAt" xml:space="preserve">
-        <value>Posted at</value>
-    </data>
-    <data name="Edited" xml:space="preserve">
-        <value>Edited</value>
-    </data>
-    <data name="Deleted" xml:space="preserve">
-        <value>Deleted</value>
-    </data>
-    <data name="ComplexityId" xml:space="preserve">
-        <value>Complexity Id</value>
-    </data>
-    <data name="Complexity" xml:space="preserve">
-        <value>Complexity</value>
-    </data>
-    <data name="DifficultyId" xml:space="preserve">
-        <value>Difficulty Id</value>
-    </data>
-    <data name="Difficulty" xml:space="preserve">
-        <value>Difficulty</value>
+    <data name="User" xml:space="preserve">
+        <value>User</value>
     </data>
     <data name="UserId" xml:space="preserve">
         <value>User Id</value>
     </data>
-    <data name="User" xml:space="preserve">
-        <value>User</value>
+    <data name="ProjectIdeaId" xml:space="preserve">
+        <value>Project idea id</value>
+    </data>
+    <data name="ProjectIdea" xml:space="preserve">
+        <value>Project idea</value>
     </data>
 </root>

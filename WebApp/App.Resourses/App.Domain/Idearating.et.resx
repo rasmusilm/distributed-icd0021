@@ -11,25 +11,19 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="Deadline" xml:space="preserve">
-        <value>Tähtaeg</value>
-    </data>
-    <data name="Description" xml:space="preserve">
-        <value>Kirjeldus</value>
-    </data>
-    <data name="Name" xml:space="preserve">
-        <value>Nimi</value>
-    </data>
-    <data name="ProjectIdea" xml:space="preserve">
-        <value>Projekti idee</value>
-    </data>
-    <data name="ProjectIdeaId" xml:space="preserve">
-        <value>projekti idee id</value>
+    <data name="UserId" xml:space="preserve">
+        <value>Kasutaja Id</value>
     </data>
     <data name="User" xml:space="preserve">
         <value>Kasutaja</value>
     </data>
-    <data name="UserId" xml:space="preserve">
-        <value>Kasutaja Id</value>
+    <data name="Rating" xml:space="preserve">
+        <value>Hinne</value>
+    </data>
+    <data name="ProjectIdea" xml:space="preserve">
+        <value>Projektiidee id</value>
+    </data>
+    <data name="ProjectIdeaId" xml:space="preserve">
+        <value>Projekti idee</value>
     </data>
 </root>

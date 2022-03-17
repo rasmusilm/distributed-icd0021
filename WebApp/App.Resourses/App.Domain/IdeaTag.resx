@@ -24,19 +24,10 @@
     <data name="ProjectIdea" xml:space="preserve">
         <value>Project Idea</value>
     </data>
-    <data name="Name" xml:space="preserve">
-        <value>Name</value>
+    <data name="TagId" xml:space="preserve">
+        <value>Tag Id</value>
     </data>
-    <data name="Description" xml:space="preserve">
-        <value>Description</value>
-    </data>
-    <data name="Deadline" xml:space="preserve">
-        <value>Deadline</value>
-    </data>
-    <data name="UserId" xml:space="preserve">
-        <value>User Id</value>
-    </data>
-    <data name="User" xml:space="preserve">
-        <value>User</value>
+    <data name="Tag" xml:space="preserve">
+        <value>Tag</value>
     </data>
 </root>
