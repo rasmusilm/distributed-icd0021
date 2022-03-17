@@ -22,7 +22,7 @@ namespace App.Resourses.App.Domain {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class IdeaTag {
+    public class IdeaTag {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -63,7 +63,7 @@ namespace App.Resourses.App.Domain {
         /// <summary>
         ///   Looks up a localized string similar to Project Idea.
         /// </summary>
-        internal static string ProjectIdea {
+        public static string ProjectIdea {
             get {
                 return ResourceManager.GetString("ProjectIdea", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace App.Resourses.App.Domain {
         /// <summary>
         ///   Looks up a localized string similar to Project Idea Id.
         /// </summary>
-        internal static string ProjectIdeaId {
+        public static string ProjectIdeaId {
             get {
                 return ResourceManager.GetString("ProjectIdeaId", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace App.Resourses.App.Domain {
         /// <summary>
         ///   Looks up a localized string similar to Tag.
         /// </summary>
-        internal static string Tag {
+        public static string Tag {
             get {
                 return ResourceManager.GetString("Tag", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace App.Resourses.App.Domain {
         /// <summary>
         ///   Looks up a localized string similar to Tag Id.
         /// </summary>
-        internal static string TagId {
+        public static string TagId {
             get {
                 return ResourceManager.GetString("TagId", resourceCulture);
             }
