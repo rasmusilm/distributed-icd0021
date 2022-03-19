@@ -1,12 +1,11 @@
 using System.ComponentModel.DataAnnotations;
-using App.Domain.Base;
+using App.Base;
 using App.Domain.Identity;
 
 namespace App.Domain;
 
-public class IdeaFeedProfile : IBaseItem
+public class IdeaFeedProfile : DomainEntityId
 {
-    public Guid Id { get; set; }
     [Display( ResourceType = typeof(App.Resourses.App.Domain.IdeaFeedProfile), Name = nameof(App.Resourses.App.Domain.IdeaFeedProfile.Name))]
     public string Name { get; set; } = default!;
     

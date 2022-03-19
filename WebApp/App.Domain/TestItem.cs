@@ -3,9 +3,8 @@ using App.Base;
 
 namespace App.Domain;
 
-public class TestItem : Base.IBaseItem
+public class TestItem : DomainEntityId
 {
-    public Guid Id { get; set; }
     [Column(TypeName = "jsonb")]
     public LangStr Name { get; set; } = new();
 }

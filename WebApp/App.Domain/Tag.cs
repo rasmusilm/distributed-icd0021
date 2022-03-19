@@ -4,9 +4,8 @@ using App.Base;
 
 namespace App.Domain;
 
-public class Tag : Base.IBaseItem
+public class Tag : DomainEntityId
 {
-    public Guid Id { get; set; }
     [Display( ResourceType = typeof(App.Resourses.App.Domain.Tag), Name = nameof(Tagname))]
     [Column(TypeName = "jsonb")]
     public LangStr Tagname { get; set; } = new ();

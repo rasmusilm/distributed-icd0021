@@ -15,10 +15,6 @@
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>ProjectIdea.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Base\Common.resx">
-        <Generator>PublicResXFileCodeGenerator</Generator>
-        <LastGenOutput>Common.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="App.Domain\Tag.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Tag.Designer.cs</LastGenOutput>
@@ -99,11 +95,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>ProjectIdea.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Base\Common.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Common.resx</DependentUpon>
       </Compile>
       <Compile Update="App.Domain\Tag.Designer.cs">
         <DesignTime>True</DesignTime>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace App.Resourses.Base {
+namespace Base.Resources {
     using System;
     
     

@@ -1,12 +1,12 @@
 using System.ComponentModel.DataAnnotations;
-using App.Domain.Base;
+using App.Base;
 using App.Domain.Identity;
+
 
 namespace App.Domain;
 
-public class CommentRating : IBaseItem
+public class CommentRating : DomainEntityId
 {
-    public Guid Id { get; set; }
     [Display( ResourceType = typeof(App.Resourses.App.Domain.CommentRating), Name = nameof(App.Resourses.App.Domain.CommentRating.Vote))]
     public bool Vote { get; set; } = default!;
     [Display( ResourceType = typeof(App.Resourses.App.Domain.CommentRating), Name = nameof(App.Resourses.App.Domain.CommentRating.UserId))]

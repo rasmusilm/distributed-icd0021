@@ -1,14 +1,11 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
-using App.Domain.Base;
+using App.Base;
 using App.Domain.Identity;
 
 namespace App.Domain;
 
-public class ProjectIdea : IBaseItem
+public class ProjectIdea : DomainEntityId
 {
-    public Guid Id { get; set; }
     
     [Display( ResourceType = typeof(App.Resourses.App.Domain.ProjectIdea), Name = nameof(Title))]
     public string Title { get; set; } = "";

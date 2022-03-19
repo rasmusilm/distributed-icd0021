@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations;
-using App.Domain.Base;
+using App.Base;
 
 namespace App.Domain;
 
-public class ProjectTaskStatus : IBaseItem
+public class ProjectTaskStatus : DomainEntityId
 {
-    public Guid Id { get; set; }
     [Display( ResourceType = typeof(App.Resourses.App.Domain.ProjectTaskStatus), Name = nameof(App.Resourses.App.Domain.ProjectTaskStatus.Name))]
     public string Name { get; set; } = default!;
     [Display( ResourceType = typeof(App.Resourses.App.Domain.ProjectTaskStatus), Name = nameof(App.Resourses.App.Domain.ProjectTaskStatus.Description))]

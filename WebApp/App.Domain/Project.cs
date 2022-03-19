@@ -1,12 +1,11 @@
 using System.ComponentModel.DataAnnotations;
-using App.Domain.Base;
+using App.Base;
 using App.Domain.Identity;
 
 namespace App.Domain;
 
-public class Project : IBaseItem
+public class Project : DomainEntityId
 {
-    public Guid Id { get; set; }
     
     [Display( ResourceType = typeof(App.Resourses.App.Domain.Project), Name = nameof(App.Resourses.App.Domain.Project.ProjectIdeaId))]
     public Guid? ProjectIdeaId { get; set; }

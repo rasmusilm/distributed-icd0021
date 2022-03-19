@@ -1,12 +1,10 @@
 using System.ComponentModel.DataAnnotations;
-using App.Domain.Base;
+using App.Base;
 
 namespace App.Domain;
 
-public class FeedTag : IBaseItem
+public class FeedTag : DomainEntityId
 {
-    public Guid Id { get; set; }
-    
     [Display( ResourceType = typeof(App.Resourses.App.Domain.FeedTag), Name = nameof(App.Resourses.App.Domain.FeedTag.Tag))]
     public Tag? Tag { get; set; }
     [Display( ResourceType = typeof(App.Resourses.App.Domain.FeedTag), Name = nameof(App.Resourses.App.Domain.FeedTag.TagId))]
