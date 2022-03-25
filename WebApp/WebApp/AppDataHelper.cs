@@ -1,4 +1,5 @@
 using App.Domain;
+using App.Domain.Identity;
 using DAL.App;
 using Microsoft.EntityFrameworkCore;
 
@@ -186,6 +187,23 @@ public class AppDataHelper
             };
             context.Complexities.Add(complexity2);
             
+            context.SaveChanges();
+            var user = new User();
+
+            context.Users.Add(user);
+
+            context.ProjectIdeas.Add(
+                new ProjectIdea
+                {
+                    Title = "Test Post",
+                    Explanation = "Test Explanation",
+                    PostedAt = DateTime.Now,
+                    Complexity = complexity,
+                    Difficulty = difficulty,
+                    User = user,
+                    UserId = user.Id
+                }
+                );
             context.SaveChanges();
         }
     }
