@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using App.Domain;
 using DAL.App;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "admin")]
     public class CommentController : Controller
     {
         private readonly ApplicationDbContext _context;
