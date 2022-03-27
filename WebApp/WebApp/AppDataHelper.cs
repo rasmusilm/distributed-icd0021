@@ -1,6 +1,7 @@
 using App.Domain;
 using App.Domain.Identity;
 using DAL.App;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebApp;
@@ -33,7 +34,69 @@ public class AppDataHelper
 
         if (configuration.GetValue<bool>("DataInitialization:SeedIdentity"))
         {
-            // TODO
+            using var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+            using var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<UserRole>>();
+
+            if (userManager == null || roleManager == null)
+            {
+                throw new NullReferenceException("userManager or roleManager cannot be null!");
+            }
+
+            var roles = new string[]
+            {
+                "admin",
+                "user"
+            };
+
+            foreach (var rolename in roles)
+            {
+                var role = roleManager.FindByNameAsync(rolename).Result;
+                if (role == null)
+                {
+                    var identityResult = roleManager.CreateAsync(new UserRole()
+                    {
+                        Name = rolename,
+                    }).Result;
+                    if (!identityResult.Succeeded)
+                    {
+                        throw new ApplicationException("Role creation failed");
+                    }
+                }
+            }
+
+            var users = new (string username,string firstName,string lastName, string password, string roles)[]
+            {
+                ("admin@itcollege.ee","Admin","College", "Hea.Parool.1", "user,admin"),
+                ("rasmus.ilmjarv@gmail.com","Rasmus","Ilmjärv", "Hea.Parool.1", "user,admin"),
+                ("user@itcollege.ee","User","College", "Kala.maja1", "user"),
+                ("newuser@itcollege.ee","User No Roles","College", "Kala.maja1", ""),
+            };
+
+            foreach (var userInfo in users)
+            {
+                var user = userManager.FindByEmailAsync(userInfo.username).Result;
+                if (user == null)
+                {
+                    user = new User()
+                    {
+                        Email = userInfo.username,
+                        UserName = userInfo.username,
+                        EmailConfirmed = true,
+                    };
+                    var identityResult = userManager.CreateAsync(user, userInfo.password).Result;
+                    if (!identityResult.Succeeded)
+                    {
+                        throw new ApplicationException("Cannot create user!");
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(userInfo.roles))
+                {
+                    var identityResultRole = userManager.AddToRolesAsync(user,
+                        userInfo.roles.Split(",").Select(r => r.Trim())
+                    ).Result;
+                }
+            }
         }
         
         if (configuration.GetValue<bool>("DataInitialization:SeedData"))
