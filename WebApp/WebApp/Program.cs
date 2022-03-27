@@ -2,6 +2,7 @@ using System.Globalization;
 using App.Contracts.DAL;
 using App.Domain.Identity;
 using DAL.App;
+using Helpers.WebApp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -22,17 +23,17 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 /*
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();*/
-builder.Services.AddIdentity<User, UserRole>(options =>
-    {
-        options.SignIn.RequireConfirmedAccount = false;
-    })
+builder.Services.AddIdentity<User, UserRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddDefaultUI()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(
+    options => { options.ModelBinderProviders.Insert(0, new CustomLangStrBinderProvider()); }
+    );
 
-var supportedCultures = builder.Configuration
+var supportedCultures = builder
+    .Configuration
     .GetSection("SupportedCultures")
     .GetChildren()
     .Select(x => new CultureInfo(x.Value))
@@ -58,6 +59,16 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     };
 });
 
+builder.Services.Configure<IdentityOptions>(options => {        
+    // Password settings        
+    options.Password.RequireDigit = false;        
+    options.Password.RequiredLength = 1;        
+    options.Password.RequireNonAlphanumeric = false;        
+    options.Password.RequireUppercase = false;        
+    options.Password.RequireLowercase = false;        
+    options.Password.RequiredUniqueChars = 1;        
+});
+
 //================================== Pipeline setupu adn start of web =====================
 
 var app = builder.Build();
@@ -80,6 +91,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
 app.UseRequestLocalization(options: 
     app.Services.GetService<IOptions<RequestLocalizationOptions>>()?.Value!);
 

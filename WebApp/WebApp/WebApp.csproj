@@ -21,10 +21,7 @@
       <ProjectReference Include="..\Base.Domain\Base.Domain.csproj" />
       <ProjectReference Include="..\Base.Resources\Base.Resources.csproj" />
       <ProjectReference Include="..\App.DAL.EF\App.DAL.EF.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Pages" />
+      <ProjectReference Include="..\Helpers.WebApp\Helpers.WebApp.csproj" />
     </ItemGroup>
 
     <ItemGroup>
