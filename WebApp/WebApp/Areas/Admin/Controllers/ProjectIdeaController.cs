@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using App.Domain;
 using DAL.App;
+using Helpers.WebApp;
 using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Areas.Admin.Controllers
@@ -26,7 +27,9 @@ namespace WebApp.Areas.Admin.Controllers
         // GET: Admin/ProjectIdea
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.ProjectIdeas.Include(p => p.Complexity).Include(p => p.Difficulty).Include(p => p.User);
+            var applicationDbContext = _context.ProjectIdeas.Where(t => t.UserId.Equals(User.GetUserId())).Include(p => p.Complexity).Include(p => p.Difficulty).Include(p => p.User);
+            // https://localhost:7247/Admin/ProjectIdea/Edit/d1b2bc66-7b80-4216-812f-8dba2426de84
+            // Where(t => t.UserId.Equals(User.GetUserId())).
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -69,7 +72,10 @@ namespace WebApp.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                projectIdea.UserId = User.GetUserId();
+                
                 projectIdea.Id = Guid.NewGuid();
+                
                 _context.Add(projectIdea);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -89,7 +95,7 @@ namespace WebApp.Areas.Admin.Controllers
             }
 
             var projectIdea = await _context.ProjectIdeas.FindAsync(id);
-            if (projectIdea == null)
+            if (projectIdea == null || projectIdea.UserId != User.GetUserId())
             {
                 return NotFound();
             }
@@ -106,7 +112,7 @@ namespace WebApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,Title,Explanation,PostedAt,Edited,Deleted,ComplexityId,DifficultyId,UserId")] ProjectIdea projectIdea)
         {
-            if (id != projectIdea.Id)
+            if (id != projectIdea.Id || projectIdea.UserId != User.GetUserId())
             {
                 return NotFound();
             }
@@ -150,7 +156,7 @@ namespace WebApp.Areas.Admin.Controllers
                 .Include(p => p.Difficulty)
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (projectIdea == null)
+            if (projectIdea == null || projectIdea.UserId != User.GetUserId())
             {
                 return NotFound();
             }
