@@ -9,6 +9,7 @@ namespace DAL.App;
 
 public class ApplicationDbContext : IdentityDbContext<User, UserRole, Guid>
 {
+    public DbSet<RefreshToken> RefreshTokens { get; set; } = default!;
     public DbSet<TestItem> TestItems { get; set; } = default!;
     public DbSet<Difficulty> Difficulties { get; set; } = default!;
     public DbSet<Complexity> Complexities  { get; set; } = default!;

@@ -57,9 +57,9 @@ namespace WebApp.Areas.Admin.Controllers
         // GET: Admin/ProjectIdea/Create
         public IActionResult Create()
         {
-            ViewData["ComplexityId"] = new SelectList(_context.Complexities, "Id", "Id");
-            ViewData["DifficultyId"] = new SelectList(_context.Difficulties, "Id", "Id");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["ComplexityId"] = new SelectList(_context.Complexities, "Id", "Name");
+            ViewData["DifficultyId"] = new SelectList(_context.Difficulties, "Id", "Name");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName");
             return View();
         }
 
