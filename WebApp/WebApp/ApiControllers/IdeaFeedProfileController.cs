@@ -8,11 +8,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using App.Domain;
 using DAL.App;
+using Helpers.WebApp;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.ApiControllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class IdeaFeedProfileController : ControllerBase
     {
         private readonly AppUOW _unitOfWork;
@@ -26,7 +30,7 @@ namespace WebApp.ApiControllers
         [HttpGet]
         public async Task<IEnumerable<IdeaFeedProfile>> GetIdeaFeedProfiles()
         {
-            return await _unitOfWork.IdeaFeedProfiles.GetAllAsync();
+            return _unitOfWork.IdeaFeedProfiles.GetAllByUser(User.GetUserId());
         }
 
         // GET: api/IdeaFeedProfile/5

@@ -30,6 +30,7 @@ namespace DAL.App.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -242,6 +243,28 @@ namespace DAL.App.Migrations
                     table.PrimaryKey("PK_IdeaFeedProfiles", x => x.Id);
                     table.ForeignKey(
                         name: "FK_IdeaFeedProfiles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RefreshTokens",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Token = table.Column<string>(type: "character varying(36)", maxLength: 36, nullable: false),
+                    TokenExpirationDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    PreviousToken = table.Column<string>(type: "character varying(36)", maxLength: 36, nullable: true),
+                    PreviousTokenExpirationDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RefreshTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -733,6 +756,11 @@ namespace DAL.App.Migrations
                 column: "ProjectTaskStatusId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RefreshTokens_UserId",
+                table: "RefreshTokens",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RoleInTeams_TeamId",
                 table: "RoleInTeams",
                 column: "TeamId");
@@ -807,6 +835,9 @@ namespace DAL.App.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProjectTasks");
+
+            migrationBuilder.DropTable(
+                name: "RefreshTokens");
 
             migrationBuilder.DropTable(
                 name: "RoleInTeams");

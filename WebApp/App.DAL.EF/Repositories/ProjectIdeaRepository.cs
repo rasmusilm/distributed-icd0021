@@ -7,12 +7,15 @@ namespace DAL.App.Repositories;
 
 public class ProjectIdeaRepository : BaseEntityRepository<ProjectIdea, ApplicationDbContext>, IProjectIdeaRepository
 {
+    private readonly ApplicationDbContext _context;
     public ProjectIdeaRepository(ApplicationDbContext dbContext) : base(dbContext)
     {
+        _context = dbContext;
     }
 
-    public Task<IEnumerable<ProjectIdea>> GetAllByUser(string username)
+    public IEnumerable<ProjectIdea> GetAllByUser(Guid userId)
     {
-        throw new NotImplementedException();
+        var projectIdeas = _context.ProjectIdeas.Where(p => p.UserId.Equals(userId));
+        return projectIdeas.AsEnumerable();
     }
 }

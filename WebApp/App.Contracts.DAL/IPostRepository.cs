@@ -5,5 +5,5 @@ namespace App.Contracts.DAL;
 
 public interface IProjectIdeaRepository : IEntityRepository<ProjectIdea>
 {
-    Task<IEnumerable<ProjectIdea>> GetAllByUser(string username);
+    IEnumerable<ProjectIdea> GetAllByUser(Guid userid);
 }

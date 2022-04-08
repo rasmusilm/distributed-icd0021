@@ -12,5 +12,7 @@ public class User : IdentityUser<Guid>
     public ICollection<Project>? Projects { get; set; } = default!;
     public ICollection<UserInTeam>? UserInTeams { get; set; } = default!;
     public ICollection<UserInProject>? UserInProjects { get; set; } = default!;
-    public ICollection<RefreshToken>? RefreshTokens { get; set; }
+    public ICollection<RefreshToken>? RefreshTokens { get; set; } = new List<RefreshToken>();
+    
+    public string? Name { get; set; } = "default";
 }

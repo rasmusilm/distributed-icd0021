@@ -18,7 +18,7 @@ namespace DAL.App.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.2")
+                .HasAnnotation("ProductVersion", "6.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -208,6 +208,37 @@ namespace DAL.App.Migrations
                     b.ToTable("IdeaTags");
                 });
 
+            modelBuilder.Entity("App.Domain.Identity.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("PreviousToken")
+                        .HasMaxLength(36)
+                        .HasColumnType("character varying(36)");
+
+                    b.Property<DateTime?>("PreviousTokenExpirationDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("character varying(36)");
+
+                    b.Property<DateTime>("TokenExpirationDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("App.Domain.Identity.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -233,6 +264,9 @@ namespace DAL.App.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -781,6 +815,14 @@ namespace DAL.App.Migrations
                     b.Navigation("Tag");
                 });
 
+            modelBuilder.Entity("App.Domain.Identity.RefreshToken", b =>
+                {
+                    b.HasOne("App.Domain.Identity.User", null)
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("App.Domain.Project", b =>
                 {
                     b.HasOne("App.Domain.ProjectIdea", "ProjectIdea")
@@ -1000,6 +1042,8 @@ namespace DAL.App.Migrations
                     b.Navigation("ProjectIdeas");
 
                     b.Navigation("Projects");
+
+                    b.Navigation("RefreshTokens");
 
                     b.Navigation("UserInProjects");
 

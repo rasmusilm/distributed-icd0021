@@ -8,11 +8,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using App.Domain;
 using DAL.App;
+using Helpers.WebApp;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.ApiControllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ProjectIdeaController : ControllerBase
     {
         private readonly AppUOW _unitOfWork;
@@ -26,7 +30,7 @@ namespace WebApp.ApiControllers
         [HttpGet]
         public async Task<IEnumerable<ProjectIdea>> GetProjectIdeas()
         {
-            return await _unitOfWork.ProjectIdeas.GetAllAsync();
+            return _unitOfWork.ProjectIdeas.GetAllByUser(User.GetUserId());
         }
 
         // GET: api/ProjectIdea/5
@@ -35,7 +39,7 @@ namespace WebApp.ApiControllers
         {
             var projectIdea = await _unitOfWork.ProjectIdeas.FirstOrDefaultAsync(id);
 
-            if (projectIdea == null)
+            if (projectIdea == null || projectIdea.UserId != User.GetUserId())
             {
                 return NotFound();
             }
@@ -48,7 +52,7 @@ namespace WebApp.ApiControllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProjectIdea(Guid id, ProjectIdea projectIdea)
         {
-            if (id != projectIdea.Id)
+            if (id != projectIdea.Id || projectIdea.UserId != User.GetUserId())
             {
                 return BadRequest();
             }
@@ -90,7 +94,7 @@ namespace WebApp.ApiControllers
         public async Task<IActionResult> DeleteProjectIdea(Guid id)
         {
             var projectIdea = await _unitOfWork.ProjectIdeas.FirstOrDefaultAsync(id);
-            if (projectIdea == null)
+            if (projectIdea == null || projectIdea.UserId != User.GetUserId())
             {
                 return NotFound();
             }

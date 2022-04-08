@@ -72,10 +72,16 @@ public class AccountController : ControllerBase
             _configuration["JWT:Issuer"],
             DateTime.Now.AddMinutes(_configuration.GetValue<int>("JWT:ExpireInMinutes"))
         );
+        
+        // generate RefreshToken
+        var refreshToken = new RefreshToken();
+        appUser.RefreshTokens!.Add(refreshToken);
+        await _userManager.UpdateAsync(appUser);
 
         var res = new JwtResponse()
         {
             Token = jwt,
+            RefreshToken = refreshToken.Token,
         };
 
         return Ok(res);
