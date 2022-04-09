@@ -39,7 +39,7 @@ namespace WebApp.ApiControllers
         {
             var ideaFeedProfile = await _unitOfWork.IdeaFeedProfiles.FirstOrDefaultAsync(id);
 
-            if (ideaFeedProfile == null)
+            if (ideaFeedProfile == null || ideaFeedProfile.UserId != User.GetUserId())
             {
                 return NotFound();
             }
@@ -52,7 +52,7 @@ namespace WebApp.ApiControllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutIdeaFeedProfile(Guid id, IdeaFeedProfile ideaFeedProfile)
         {
-            if (id != ideaFeedProfile.Id)
+            if (id != ideaFeedProfile.Id || ideaFeedProfile.UserId != User.GetUserId())
             {
                 return BadRequest();
             }
@@ -94,7 +94,7 @@ namespace WebApp.ApiControllers
         public async Task<IActionResult> DeleteIdeaFeedProfile(Guid id)
         {
             var ideaFeedProfile = await _unitOfWork.IdeaFeedProfiles.FirstOrDefaultAsync(id);
-            if (ideaFeedProfile == null)
+            if (ideaFeedProfile == null || ideaFeedProfile.UserId != User.GetUserId())
             {
                 return NotFound();
             }
