@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DAL.App.Migrations
+namespace App.DAL.EF.Migrations
 {
     public partial class InitialCreation : Migration
     {

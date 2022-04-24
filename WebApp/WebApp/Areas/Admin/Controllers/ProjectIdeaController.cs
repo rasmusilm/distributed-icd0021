@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using App.Domain;
-using DAL.App;
+using App.DAL.EF;
 using Helpers.WebApp;
 using Microsoft.AspNetCore.Authorization;
 

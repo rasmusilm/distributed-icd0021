@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Task = System.Threading.Tasks.Task;
 
-namespace DAL.App;
+namespace App.DAL.EF;
 
 public class ApplicationDbContext : IdentityDbContext<User, UserRole, Guid>
 {

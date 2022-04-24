@@ -1,21 +1,23 @@
 using App.Contracts.DAL;
+using App.DAL.EF;
 using App.Domain;
+using Base.Contracts.Base;
 using Base.DAL.EF;
 
-namespace DAL.App.Repositories;
+namespace App.DAl.EF.Repositories;
 
-public class IdeaRatingRepository: BaseEntityRepository<IdeaRating, ApplicationDbContext>, IIdeaRatingRepository
+public class IdeaRatingRepository: BaseEntityRepository<App.DAL.DTO.IdeaRating, IdeaRating, ApplicationDbContext>, IIdeaRatingRepository
 {
-    public IdeaRatingRepository(ApplicationDbContext dbContext) : base(dbContext)
+    public IdeaRatingRepository(ApplicationDbContext dbContext, IMapper<App.DAL.DTO.IdeaRating, IdeaRating> mapper) : base(dbContext, mapper)
     {
     }
     
-    public Task<IEnumerable<IdeaRating>> GetAllByUser(string username)
+    public Task<IEnumerable<App.DAL.DTO.IdeaRating>> GetAllByUser(string username)
     {
         throw new NotImplementedException();
     }
     
-    public Task<IEnumerable<IdeaRating>> GetAllOnPost(string postIdea)
+    public Task<IEnumerable<App.DAL.DTO.IdeaRating>> GetAllOnPost(string postIdea)
     {
         throw new NotImplementedException();
     }

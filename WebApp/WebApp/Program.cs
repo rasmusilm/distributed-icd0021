@@ -1,8 +1,10 @@
 using System.Globalization;
 using System.Text;
+using App.BLL;
+using App.Contracts.BLL;
 using App.Contracts.DAL;
+using App.DAL.EF;
 using App.Domain.Identity;
-using DAL.App;
 using Helpers.WebApp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -19,6 +21,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IAppUnitOfWork, AppUOW>();
+builder.Services.AddScoped<IAppBLL, AppBLL>();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -71,7 +74,6 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.RequestCultureProviders = new List<IRequestCultureProvider>
     {
         // Order is important, its in which order they will be evaluated
-        // add support for ?culture=ru-RU
         new QueryStringRequestCultureProvider(),
         new CookieRequestCultureProvider()
     };

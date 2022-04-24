@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using App.Contracts.BLL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using App.Domain;
-using DAL.App;
+using App.BLL.DTO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 
@@ -18,25 +18,25 @@ namespace WebApp.ApiControllers
     [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class IdeaRatingController : ControllerBase
     {
-        private readonly AppUOW _unitOfWork;
+        private readonly IAppBLL _bll;
 
-        public IdeaRatingController(ApplicationDbContext context)
+        public IdeaRatingController(IAppBLL bll)
         {
-            _unitOfWork = new AppUOW(context);
+            _bll = bll;
         }
 
         // GET: api/IdeaRating
         [HttpGet]
         public async Task<IEnumerable<IdeaRating>> GetIdeaRatings()
         {
-            return await _unitOfWork.IdeaRatings.GetAllAsync();
+            return await _bll.IdeaRatings.GetAllAsync();
         }
 
         // GET: api/IdeaRating/5
         [HttpGet("{id}")]
         public async Task<ActionResult<IdeaRating>> GetIdeaRating(Guid id)
         {
-            var ideaRating = await _unitOfWork.IdeaRatings.FirstOrDefaultAsync(id);
+            var ideaRating = await _bll.IdeaRatings.FirstOrDefaultAsync(id);
 
             if (ideaRating == null)
             {
@@ -56,11 +56,11 @@ namespace WebApp.ApiControllers
                 return BadRequest();
             }
 
-            _unitOfWork.IdeaRatings.Update(ideaRating);
+            _bll.IdeaRatings.Update(ideaRating);
 
             try
             {
-                await _unitOfWork.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -82,8 +82,8 @@ namespace WebApp.ApiControllers
         [HttpPost]
         public async Task<ActionResult<IdeaRating>> PostIdeaRating(IdeaRating ideaRating)
         {
-            _unitOfWork.IdeaRatings.Add(ideaRating);
-            await _unitOfWork.SaveChangesAsync();
+            _bll.IdeaRatings.Add(ideaRating);
+            await _bll.SaveChangesAsync();
 
             return CreatedAtAction("GetIdeaRating", new { id = ideaRating.Id }, ideaRating);
         }
@@ -92,21 +92,21 @@ namespace WebApp.ApiControllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteIdeaRating(Guid id)
         {
-            var ideaRating = await _unitOfWork.IdeaRatings.FirstOrDefaultAsync(id);
+            var ideaRating = await _bll.IdeaRatings.FirstOrDefaultAsync(id);
             if (ideaRating == null)
             {
                 return NotFound();
             }
 
-            _unitOfWork.IdeaRatings.Remove(ideaRating);
-            await _unitOfWork.SaveChangesAsync();
+            _bll.IdeaRatings.Remove(ideaRating);
+            await _bll.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool IdeaRatingExists(Guid id)
         {
-            return _unitOfWork.IdeaRatings.Exists(id);
+            return _bll.IdeaRatings.Exists(id);
         }
     }
 }

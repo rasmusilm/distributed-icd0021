@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using App.BLL.DTO;
+using App.Contracts.BLL;
+using App.DAl.EF;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using App.Domain;
-using DAL.App;
+using AutoMapper;
 using Helpers.WebApp;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -19,25 +21,25 @@ namespace WebApp.ApiControllers
     [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ProjectIdeaController : ControllerBase
     {
-        private readonly AppUOW _unitOfWork;
+        private readonly IAppBLL _bll;
 
-        public ProjectIdeaController(ApplicationDbContext context)
+        public ProjectIdeaController(IAppBLL bll)
         {
-            _unitOfWork = new AppUOW(context);
+            _bll = bll;
         }
 
         // GET: api/ProjectIdea
         [HttpGet]
         public async Task<IEnumerable<ProjectIdea>> GetProjectIdeas()
         {
-            return _unitOfWork.ProjectIdeas.GetAllByUser(User.GetUserId());
+            return await _bll.ProjectIdeas.GetAllByUser(User.GetUserId());
         }
 
         // GET: api/ProjectIdea/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ProjectIdea>> GetProjectIdea(Guid id)
         {
-            var projectIdea = await _unitOfWork.ProjectIdeas.FirstOrDefaultAsync(id);
+            var projectIdea = await _bll.ProjectIdeas.FirstOrDefaultAsync(id);
 
             if (projectIdea == null || projectIdea.UserId != User.GetUserId())
             {
@@ -57,11 +59,11 @@ namespace WebApp.ApiControllers
                 return BadRequest();
             }
 
-            _unitOfWork.ProjectIdeas.Update(projectIdea);
+            _bll.ProjectIdeas.Update(projectIdea);
 
             try
             {
-                await _unitOfWork.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -83,8 +85,8 @@ namespace WebApp.ApiControllers
         [HttpPost]
         public async Task<ActionResult<ProjectIdea>> PostProjectIdea(ProjectIdea projectIdea)
         {
-            _unitOfWork.ProjectIdeas.Add(projectIdea);
-            await _unitOfWork.SaveChangesAsync();
+            _bll.ProjectIdeas.Add(projectIdea);
+            await _bll.SaveChangesAsync();
 
             return CreatedAtAction("GetProjectIdea", new { id = projectIdea.Id }, projectIdea);
         }
@@ -93,21 +95,21 @@ namespace WebApp.ApiControllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProjectIdea(Guid id)
         {
-            var projectIdea = await _unitOfWork.ProjectIdeas.FirstOrDefaultAsync(id);
+            var projectIdea = await _bll.ProjectIdeas.FirstOrDefaultAsync(id);
             if (projectIdea == null || projectIdea.UserId != User.GetUserId())
             {
                 return NotFound();
             }
 
-            _unitOfWork.ProjectIdeas.Remove(projectIdea);
-            await _unitOfWork.SaveChangesAsync();
+            _bll.ProjectIdeas.Remove(projectIdea);
+            await _bll.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool ProjectIdeaExists(Guid id)
         {
-            return _unitOfWork.ProjectIdeas.Exists(id);
+            return _bll.ProjectIdeas.Exists(id);
         }
     }
 }

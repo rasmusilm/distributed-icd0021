@@ -1,6 +1,6 @@
 namespace App.Resourses;
 
-public class Temp
+public class forimport
 {
     
 }

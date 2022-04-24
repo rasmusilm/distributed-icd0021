@@ -1,14 +1,15 @@
 using App.Contracts.DAL;
 using App.Domain;
+using Base.Contracts.Base;
 using Base.DAL.EF;
 
-namespace DAL.App.Repositories;
+namespace App.DAl.EF.Repositories;
 
-public class IdeaFeedProfileRepository: BaseEntityRepository<IdeaFeedProfile, ApplicationDbContext>, IIdeaFeedProfileRepository
+public class IdeaFeedProfileRepository: BaseEntityRepository<DAL.DTO.IdeaFeedProfile, App.Domain.IdeaFeedProfile, ApplicationDbContext>, IIdeaFeedProfileRepository
 {
     private ApplicationDbContext _context;
 
-    public IdeaFeedProfileRepository(ApplicationDbContext dbContext) : base(dbContext)
+    public IdeaFeedProfileRepository(ApplicationDbContext dbContext, IMapper<DAL.DTO.IdeaFeedProfile, IdeaFeedProfile> mapper) : base(dbContext, mapper)
     {
         _context = dbContext;
     }

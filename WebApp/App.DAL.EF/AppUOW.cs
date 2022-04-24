@@ -1,27 +1,31 @@
 using App.Contracts.DAL;
+using App.DAL.EF.Mappers;
+using App.DAl.EF.Repositories;
+using App.DAL.EF.Repositories;
 using Base.DAL.EF;
-using DAL.App.Repositories;
 
-namespace DAL.App;
+namespace App.DAL.EF;
 
 public class AppUOW: BaseUOW<ApplicationDbContext>, IAppUnitOfWork
 {
-    public AppUOW(ApplicationDbContext dbContext) : base(dbContext)
+    private readonly AutoMapper.IMapper _mapper;
+    public AppUOW(ApplicationDbContext dbContext, AutoMapper.IMapper mapper) : base(dbContext)
     {
+        _mapper = mapper;
     }
 
     private IProjectIdeaRepository? _projectIdea;
 
     public IProjectIdeaRepository ProjectIdeas => 
-        _projectIdea ??= new ProjectIdeaRepository(UOWDbContext);
+        _projectIdea ??= new ProjectIdeaRepository(UOWDbContext, new ProjectIdeaMapper(_mapper));
     
     private IIdeaRatingRepository? _ideaRating;
 
     public IIdeaRatingRepository IdeaRatings => 
-        _ideaRating ??= new IdeaRatingRepository(UOWDbContext);
-    
-    private IIdeaFeedProfileRepository? _ideaFeedProfile;
+        _ideaRating ??= new IdeaRatingRepository(UOWDbContext, new IdeaRatingMapper(_mapper));
+    //
+    // private IIdeaFeedProfileRepository? _ideaFeedProfile;
 
-    public IIdeaFeedProfileRepository IdeaFeedProfiles => 
-        _ideaFeedProfile ??= new IdeaFeedProfileRepository(UOWDbContext);
+    // public IIdeaFeedProfileRepository IdeaFeedProfiles => 
+    //     _ideaFeedProfile ??= new IdeaFeedProfileRepository(UOWDbContext);
 }
