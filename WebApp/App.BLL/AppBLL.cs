@@ -38,6 +38,11 @@ public class AppBLL : BaseBll<IAppUnitOfWork>, IAppBLL
     
     public IIdeaRatingService IdeaRatings =>
         _ideaRatings ??= new IdeaRatingService(UnitOfWork.IdeaRatings, new IdeaRatingMapper(_mapper));
+    
+    private IIdeaFeedProfileService? _ideaFeedProfiles;
+    
+    public IIdeaFeedProfileService IdeaFeedProfiles =>
+        _ideaFeedProfiles ??= new IdeaFeedService(UnitOfWork.IdeaFeedProfiles, new IdeaFeedProfileMapper(_mapper));
     //
     //
     // private IMeetingOptionService? _meetingOptions;

@@ -17,11 +17,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("NpgsqlConnection");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IAppUnitOfWork, AppUOW>();
 builder.Services.AddScoped<IAppBLL, AppBLL>();
+
+builder.Services.AddAutoMapper(
+    typeof(App.DAL.EF.AutomapperConfig),
+    typeof(App.BLL.AutomapperConfig)
+);
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

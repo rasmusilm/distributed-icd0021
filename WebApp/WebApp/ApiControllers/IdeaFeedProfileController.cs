@@ -1,13 +1,8 @@
 #nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using App.Contracts.BLL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using App.Domain;
-using DAL.App;
+using App.BLL.DTO;
 using Helpers.WebApp;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -19,25 +14,25 @@ namespace WebApp.ApiControllers
     [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class IdeaFeedProfileController : ControllerBase
     {
-        private readonly AppUOW _unitOfWork;
+        private readonly IAppBLL _bll;
 
-        public IdeaFeedProfileController(ApplicationDbContext context)
+        public IdeaFeedProfileController(IAppBLL bll)
         {
-            _unitOfWork = new AppUOW(context);
+            _bll = bll;
         }
 
         // GET: api/IdeaFeedProfile
         [HttpGet]
         public async Task<IEnumerable<IdeaFeedProfile>> GetIdeaFeedProfiles()
         {
-            return _unitOfWork.IdeaFeedProfiles.GetAllByUser(User.GetUserId());
+            return await _bll.IdeaFeedProfiles.GetAllByUser(User.GetUserId());
         }
 
         // GET: api/IdeaFeedProfile/5
         [HttpGet("{id}")]
         public async Task<ActionResult<IdeaFeedProfile>> GetIdeaFeedProfile(Guid id)
         {
-            var ideaFeedProfile = await _unitOfWork.IdeaFeedProfiles.FirstOrDefaultAsync(id);
+            var ideaFeedProfile = await _bll.IdeaFeedProfiles.FirstOrDefaultAsync(id);
 
             if (ideaFeedProfile == null || ideaFeedProfile.UserId != User.GetUserId())
             {
@@ -57,11 +52,11 @@ namespace WebApp.ApiControllers
                 return BadRequest();
             }
 
-            _unitOfWork.IdeaFeedProfiles.Update(ideaFeedProfile);
+            _bll.IdeaFeedProfiles.Update(ideaFeedProfile);
 
             try
             {
-                await _unitOfWork.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -83,8 +78,8 @@ namespace WebApp.ApiControllers
         [HttpPost]
         public async Task<ActionResult<IdeaFeedProfile>> PostIdeaFeedProfile(IdeaFeedProfile ideaFeedProfile)
         {
-            _unitOfWork.IdeaFeedProfiles.Add(ideaFeedProfile);
-            await _unitOfWork.SaveChangesAsync();
+            _bll.IdeaFeedProfiles.Add(ideaFeedProfile);
+            await _bll.SaveChangesAsync();
 
             return CreatedAtAction("GetIdeaFeedProfile", new { id = ideaFeedProfile.Id }, ideaFeedProfile);
         }
@@ -93,21 +88,21 @@ namespace WebApp.ApiControllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteIdeaFeedProfile(Guid id)
         {
-            var ideaFeedProfile = await _unitOfWork.IdeaFeedProfiles.FirstOrDefaultAsync(id);
+            var ideaFeedProfile = await _bll.IdeaFeedProfiles.FirstOrDefaultAsync(id);
             if (ideaFeedProfile == null || ideaFeedProfile.UserId != User.GetUserId())
             {
                 return NotFound();
             }
 
-            _unitOfWork.IdeaFeedProfiles.Remove(ideaFeedProfile);
-            await _unitOfWork.SaveChangesAsync();
+            _bll.IdeaFeedProfiles.Remove(ideaFeedProfile);
+            await _bll.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool IdeaFeedProfileExists(Guid id)
         {
-            return _unitOfWork.IdeaFeedProfiles.Exists(id);
+            return _bll.IdeaFeedProfiles.Exists(id);
         }
     }
 }

@@ -1,4 +1,5 @@
 using App.Contracts.DAL;
+using App.DAL.DTO;
 using App.DAL.EF.Mappers;
 using App.DAl.EF.Repositories;
 using App.DAL.EF.Repositories;
@@ -23,9 +24,9 @@ public class AppUOW: BaseUOW<ApplicationDbContext>, IAppUnitOfWork
 
     public IIdeaRatingRepository IdeaRatings => 
         _ideaRating ??= new IdeaRatingRepository(UOWDbContext, new IdeaRatingMapper(_mapper));
-    //
-    // private IIdeaFeedProfileRepository? _ideaFeedProfile;
+    
+    private IIdeaFeedProfileRepository? _ideaFeedProfile;
 
-    // public IIdeaFeedProfileRepository IdeaFeedProfiles => 
-    //     _ideaFeedProfile ??= new IdeaFeedProfileRepository(UOWDbContext);
+    public IIdeaFeedProfileRepository IdeaFeedProfiles => 
+        _ideaFeedProfile ??= new IdeaFeedProfileRepository(UOWDbContext, new  IdeaFeedProfileMapper(_mapper));
 }

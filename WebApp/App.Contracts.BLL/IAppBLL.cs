@@ -7,4 +7,5 @@ public interface IAppBLL : IBLL
 {
     IProjectIdeaService ProjectIdeas { get; }
     IIdeaRatingService IdeaRatings { get; }
+    IIdeaFeedProfileService IdeaFeedProfiles { get; }
 }

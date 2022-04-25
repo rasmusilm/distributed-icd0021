@@ -6,4 +6,5 @@ public interface IAppUnitOfWork: IUnitOfWork
 {
     IProjectIdeaRepository ProjectIdeas { get; }
     IIdeaRatingRepository IdeaRatings { get; }
+    IIdeaFeedProfileRepository IdeaFeedProfiles { get; }
 }
