@@ -13,7 +13,19 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using WebApp;
 
+var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
+
+// cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy  =>
+        {
+            policy.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+        });
+});
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("NpgsqlConnection");
@@ -117,6 +129,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// apply cors
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseRequestLocalization(options: 
     app.Services.GetService<IOptions<RequestLocalizationOptions>>()?.Value!);
