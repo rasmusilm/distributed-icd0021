@@ -83,6 +83,7 @@ public class AppDataHelper
                         Email = userInfo.username,
                         UserName = userInfo.username,
                         EmailConfirmed = true,
+                        Name = userInfo.firstName,
                     };
                     var identityResult = userManager.CreateAsync(user, userInfo.password).Result;
                     if (!identityResult.Succeeded)
@@ -252,9 +253,8 @@ public class AppDataHelper
             context.Complexities.Add(complexity2);
             
             context.SaveChanges();
-            var user = new User();
 
-            context.Users.Add(user);
+            var user = context.Users.FirstOrDefault(u => u.Name == "Rasmus");
 
             context.ProjectIdeas.Add(
                 new ProjectIdea

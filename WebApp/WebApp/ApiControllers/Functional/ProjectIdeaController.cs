@@ -1,22 +1,15 @@
 #nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using App.BLL.DTO;
 using App.Contracts.BLL;
-using App.DAl.EF;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 using Helpers.WebApp;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace WebApp.ApiControllers
+namespace WebApp.ApiControllers.Functional
 {
-    [Route("api/[controller]")]
+    [Route("/api/[controller]")]
     [ApiController]
     [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ProjectIdeaController : ControllerBase
@@ -32,7 +25,7 @@ namespace WebApp.ApiControllers
         [HttpGet]
         public async Task<IEnumerable<ProjectIdea>> GetProjectIdeas()
         {
-            return await _bll.ProjectIdeas.GetAllByUser(User.GetUserId());
+            return await _bll.ProjectIdeas.GetAllAsync();
         }
 
         // GET: api/ProjectIdea/5

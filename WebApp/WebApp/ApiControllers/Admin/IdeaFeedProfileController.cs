@@ -1,13 +1,13 @@
 #nullable disable
-using App.Contracts.BLL;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using App.BLL.DTO;
+using App.Contracts.BLL;
 using Helpers.WebApp;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace WebApp.ApiControllers
+namespace WebApp.ApiControllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]

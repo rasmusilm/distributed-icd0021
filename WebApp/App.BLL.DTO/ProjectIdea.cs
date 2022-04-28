@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using App.Base;
 using App.Domain.Identity;
+using User = App.BLL.DTO.Identity.User;
 
 namespace App.BLL.DTO;
 
@@ -32,6 +33,8 @@ public class ProjectIdea : DomainEntityId
     public Guid UserId { get; set; }
     [Display( ResourceType = typeof(App.Resourses.App.Domain.ProjectIdea), Name = nameof(User))]
     public User? User { get; set; } = default!;
+    
+    public double Rating { get; set; } = default!;
 
     public ICollection<IdeaTag>? IdeaTags { get; set; } = default!;
     public ICollection<IdeaRating>? IdeaRatings { get; set; } = default!;
