@@ -12,8 +12,8 @@ public class IdeaRating : DomainEntityId
     
     [Display( ResourceType = typeof(App.Resourses.App.Domain.Idearating), Name = nameof(App.Resourses.App.Domain.Idearating.UserId))]
     public Guid UserId { get; set; }
-    [Display( ResourceType = typeof(App.Resourses.App.Domain.Idearating), Name = nameof(App.Resourses.App.Domain.Idearating.User))]
-    public User? User { get; set; }
+    // [Display( ResourceType = typeof(App.Resourses.App.Domain.Idearating), Name = nameof(App.Resourses.App.Domain.Idearating.User))]
+    // public User? User { get; set; }
     
     [Display( ResourceType = typeof(App.Resourses.App.Domain.Idearating), Name = nameof(App.Resourses.App.Domain.Idearating.ProjectIdeaId))]
     public Guid ProjectIdeaId { get; set; }

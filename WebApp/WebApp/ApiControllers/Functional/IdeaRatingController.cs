@@ -1,14 +1,15 @@
 #nullable disable
 using App.BLL.DTO;
 using App.Contracts.BLL;
+using Helpers.WebApp;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebApp.ApiControllers.Admin
+namespace WebApp.ApiControllers.Functional
 {
-    [Route("api/admin/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class IdeaRatingController : ControllerBase
@@ -77,6 +78,10 @@ namespace WebApp.ApiControllers.Admin
         [HttpPost]
         public async Task<ActionResult<IdeaRating>> PostIdeaRating(IdeaRating ideaRating)
         {
+            ideaRating.UserId = User.GetUserId();
+            Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
+                              "\n\n\n\n\n\nAAAAAAAAAAAAAAAAAAAAAAAAa");
+            Console.WriteLine(ideaRating.Rating + "|" + ideaRating.UserId + "==" + User.GetUserId() + "|" + ideaRating.ProjectIdeaId);
             _bll.IdeaRatings.Add(ideaRating);
             await _bll.SaveChangesAsync();
 
