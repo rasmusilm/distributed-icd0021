@@ -32,9 +32,10 @@ namespace WebApp.ApiControllers.Functional
         [HttpGet("{id}")]
         public async Task<ActionResult<ProjectIdea>> GetProjectIdea(Guid id)
         {
+            Console.WriteLine("happened");
             var projectIdea = await _bll.ProjectIdeas.FirstOrDefaultAsync(id);
 
-            if (projectIdea == null || projectIdea.UserId != User.GetUserId())
+            if (projectIdea == null)
             {
                 return NotFound();
             }

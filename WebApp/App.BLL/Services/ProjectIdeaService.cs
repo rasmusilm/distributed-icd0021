@@ -27,6 +27,21 @@ public class ProjectIdeaService : BaseEntityService<App.BLL.DTO.ProjectIdea, App
         });;
     }
 
+    public new async Task<ProjectIdea?> FirstOrDefaultAsync(Guid id, bool noTracking = true)
+    {
+        var post = Mapper.Map(await Repository.FirstOrDefaultAsync(id, noTracking));
+        if (post is not null )
+        {
+            if (post.IdeaRatings!.Count > 0)
+            {
+                post.Rating = post.IdeaRatings!.Average(r => r.Rating);
+            }
+        }
+        
+
+        return post;
+    }
+
     public async Task<IEnumerable<ProjectIdea>> GetAllByUser(Guid userId)
     {
         return (await Repository.GetAllByUser(userId)).Select(x => Mapper.Map(x)!);
