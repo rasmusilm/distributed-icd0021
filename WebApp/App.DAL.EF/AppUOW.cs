@@ -29,4 +29,9 @@ public class AppUOW: BaseUOW<ApplicationDbContext>, IAppUnitOfWork
 
     public IIdeaFeedProfileRepository IdeaFeedProfiles => 
         _ideaFeedProfile ??= new IdeaFeedProfileRepository(UOWDbContext, new  IdeaFeedProfileMapper(_mapper));
+
+    private ITagRepository? _tag;
+
+    public ITagRepository Tags =>
+        _tag ??= new TagRepository(UOWDbContext, new TagMapper(_mapper));
 }

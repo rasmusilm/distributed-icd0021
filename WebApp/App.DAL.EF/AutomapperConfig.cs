@@ -10,5 +10,7 @@ public class AutomapperConfig : Profile
         CreateMap<App.DAL.DTO.IdeaFeedProfile, App.Domain.IdeaFeedProfile>().ReverseMap();
         CreateMap<App.DAL.DTO.IdeaRating, App.Domain.IdeaRating>().ReverseMap();
         CreateMap<App.DAL.DTO.Identity.User, App.Domain.Identity.User>().ReverseMap();
+        CreateMap<App.DAL.DTO.Tag, App.Domain.Tag>().ReverseMap();
+        CreateMap<App.DAL.DTO.IdeaTag, App.Domain.IdeaTag>().ReverseMap();
     }
 }

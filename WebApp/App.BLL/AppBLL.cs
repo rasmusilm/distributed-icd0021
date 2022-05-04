@@ -43,6 +43,10 @@ public class AppBLL : BaseBll<IAppUnitOfWork>, IAppBLL
     
     public IIdeaFeedProfileService IdeaFeedProfiles =>
         _ideaFeedProfiles ??= new IdeaFeedService(UnitOfWork.IdeaFeedProfiles, new IdeaFeedProfileMapper(_mapper));
+
+    private ITagService? _tagService;
+
+    public ITagService Tags => _tagService ??= new TagService(UnitOfWork.Tags, new TagMapper(_mapper));
     //
     //
     // private IMeetingOptionService? _meetingOptions;

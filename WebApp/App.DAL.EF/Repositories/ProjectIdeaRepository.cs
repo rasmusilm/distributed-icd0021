@@ -21,7 +21,10 @@ public class ProjectIdeaRepository : BaseEntityRepository<ProjectIdea, App.Domai
     public override async Task<IEnumerable<ProjectIdea>> GetAllAsync(bool noTracking = true)
     {
         return (
-                await CreateQuery(noTracking).Include(p => p.User).Include(p => p.IdeaRatings)
+                await CreateQuery(noTracking)
+                    .Include(p => p.User)
+                    .Include(p => p.IdeaRatings)
+                    .Include(p => p.IdeaTags)
                     .ToListAsync()
             )
             .Select(x => Mapper.Map(x)!);

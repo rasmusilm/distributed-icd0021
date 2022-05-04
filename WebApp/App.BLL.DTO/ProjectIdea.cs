@@ -33,10 +33,9 @@ public class ProjectIdea : DomainEntityId
     public Guid UserId { get; set; }
     [Display( ResourceType = typeof(App.Resourses.App.Domain.ProjectIdea), Name = nameof(User))]
     public User? User { get; set; } = default!;
-    
     public double Rating { get; set; } = default!;
-
     public ICollection<IdeaTag>? IdeaTags { get; set; } = default!;
+    public ICollection<Guid> TagIds { get; set; } = new List<Guid>();
     public ICollection<IdeaRating>? IdeaRatings { get; set; } = default!;
     public ICollection<IdeaInfeed>? IdeaInfeeds { get; set; } = default!;
     public ICollection<Comment>? Comments { get; set; } = default!;

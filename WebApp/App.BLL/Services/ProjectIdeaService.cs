@@ -22,9 +22,17 @@ public class ProjectIdeaService : BaseEntityService<App.BLL.DTO.ProjectIdea, App
             {
                 post.Rating = post.IdeaRatings!.Average(r => r.Rating);
             }
+
+            if (post.IdeaTags!.Count > 0)
+            {
+                foreach (var tag in post.IdeaTags)
+                {
+                    post.TagIds.Add(tag.TagId);
+                }
+            }
         
             return post;
-        });;
+        });
     }
 
     public new async Task<ProjectIdea?> FirstOrDefaultAsync(Guid id, bool noTracking = true)
