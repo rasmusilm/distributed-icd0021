@@ -11,7 +11,7 @@ namespace WebApp.ApiControllers.Functional
 {
     [Route("/api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(Roles = "admin,user", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ProjectIdeaController : ControllerBase
     {
         private readonly IAppBLL _bll;

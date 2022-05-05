@@ -11,9 +11,7 @@ public class Register
     public string Password { get; set; } = default!;
 
 
-    [StringLength(maximumLength:128, MinimumLength = 1, ErrorMessage = "Wrong length on FirstName")] 
-    public string FirstName { get; set; } = default!;
+    [StringLength(maximumLength:128, MinimumLength = 1, ErrorMessage = "Wrong length on username")] 
+    public string Name { get; set; } = default!;
 
-    [StringLength(maximumLength:128, MinimumLength = 1, ErrorMessage = "Wrong length on LastName")] 
-    public string LastName { get; set; } = default!;
 }

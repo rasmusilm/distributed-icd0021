@@ -87,8 +87,8 @@ public class AccountController : ControllerBase
         return Ok(res);
     }
 
-
-    public async Task<ActionResult<JwtResponse>> Register(Register registrationData)
+    [HttpPost]
+    public async Task<ActionResult<JwtResponse>> Register([FromBody] Register registrationData)
     {
         // verify user
         var appUser = await _userManager.FindByEmailAsync(registrationData.Email);
@@ -114,6 +114,7 @@ public class AccountController : ControllerBase
         {
             Email = registrationData.Email,
             UserName = registrationData.Email,
+            Name = registrationData.Name,
             RefreshTokens = new List<RefreshToken>()
             {
                 refreshToken
@@ -126,6 +127,8 @@ public class AccountController : ControllerBase
         {
             return BadRequest(result);
         }
+        
+        var identityResultRole = _userManager.AddToRolesAsync(appUser, new string[] {"user"}).Result;
 
 
         // get full user from system with fixed data
