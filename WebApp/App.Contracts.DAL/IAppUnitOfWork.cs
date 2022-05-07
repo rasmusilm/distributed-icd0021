@@ -8,4 +8,5 @@ public interface IAppUnitOfWork: IUnitOfWork
     IIdeaRatingRepository IdeaRatings { get; }
     IIdeaFeedProfileRepository IdeaFeedProfiles { get; }
     ITagRepository Tags { get; }
+    ICommentRepository Comments { get; }
 }

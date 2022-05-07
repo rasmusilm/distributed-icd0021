@@ -38,6 +38,4 @@ public class ProjectIdea : DomainEntityId
     public ICollection<Guid> TagIds { get; set; } = new List<Guid>();
     public ICollection<IdeaRating>? IdeaRatings { get; set; } = default!;
     public ICollection<IdeaInfeed>? IdeaInfeeds { get; set; } = default!;
-    public ICollection<Comment>? Comments { get; set; } = default!;
-    public ICollection<Project>? Projects { get; set; } = default!;
 }

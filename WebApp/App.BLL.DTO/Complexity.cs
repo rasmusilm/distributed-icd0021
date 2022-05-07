@@ -10,5 +10,5 @@ public class Complexity : DomainEntityId
     [Column(TypeName = "jsonb")]
     public LangStr Name { get; set; } = new ();
 
-    public ICollection<ProjectIdea>? ProjectIdeas { get; set; } = default!;
+    
 }

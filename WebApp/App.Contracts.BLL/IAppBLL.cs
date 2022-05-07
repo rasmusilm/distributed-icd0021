@@ -9,4 +9,5 @@ public interface IAppBLL : IBLL
     IIdeaRatingService IdeaRatings { get; }
     IIdeaFeedProfileService IdeaFeedProfiles { get; }
     ITagService Tags { get; }
+    ICommentService Comments { get; }
 }

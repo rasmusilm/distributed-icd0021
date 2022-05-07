@@ -34,4 +34,9 @@ public class AppUOW: BaseUOW<ApplicationDbContext>, IAppUnitOfWork
 
     public ITagRepository Tags =>
         _tag ??= new TagRepository(UOWDbContext, new TagMapper(_mapper));
+
+    private ICommentRepository _comments;
+
+    public ICommentRepository Comments => 
+        _comments ??= new CommentRepository(UOWDbContext, new CommentMapper(_mapper));
 }

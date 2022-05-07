@@ -47,10 +47,9 @@ public class AppBLL : BaseBll<IAppUnitOfWork>, IAppBLL
     private ITagService? _tagService;
 
     public ITagService Tags => _tagService ??= new TagService(UnitOfWork.Tags, new TagMapper(_mapper));
-    //
-    //
-    // private IMeetingOptionService? _meetingOptions;
-    //
-    // public IMeetingOptionService MeetingOptions =>
-    //     _meetingOptions ??= new MeetingOptionService(UnitOfWork.MeetingOptions, new MeetingOptionMapper(_mapper));
+
+    private ICommentService _comments;
+
+    public ICommentService Comments =>
+        _comments ??= new CommentService(UnitOfWork.Comments, new CommentMapper(_mapper));
 }
