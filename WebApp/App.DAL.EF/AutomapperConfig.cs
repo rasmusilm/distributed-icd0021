@@ -12,5 +12,7 @@ public class AutomapperConfig : Profile
         CreateMap<App.DAL.DTO.Identity.User, App.Domain.Identity.User>().ReverseMap();
         CreateMap<App.DAL.DTO.Tag, App.Domain.Tag>().ReverseMap();
         CreateMap<App.DAL.DTO.IdeaTag, App.Domain.IdeaTag>().ReverseMap();
+        CreateMap<App.DAL.DTO.Comment, App.Domain.Comment>().ReverseMap();
+        CreateMap<App.DAL.DTO.CommentRating, App.Domain.CommentRating>().ReverseMap();
     }
 }

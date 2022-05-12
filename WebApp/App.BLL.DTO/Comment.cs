@@ -24,6 +24,8 @@ public class Comment : DomainEntityId
     [Display(ResourceType = typeof(App.Resourses.App.Domain.Comment),
         Name = nameof(App.Resourses.App.Domain.Comment.User))]
     public User? User { get; set; }
+    
+    public int Rating { get; set; } = 0;
 
     public ICollection<CommentRating>? CommentRatings { get; set; }
 }

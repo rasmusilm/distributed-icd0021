@@ -18,6 +18,15 @@ public class ProjectIdeaRepository : BaseEntityRepository<ProjectIdea, App.Domai
         _context = dbContext;
     }
 
+    public override async Task<ProjectIdea?> FirstOrDefaultAsync(Guid id, bool noTracking = true)
+    {
+        return Mapper.Map(await CreateQuery(noTracking)
+            .Include(p => p.User)
+            .Include(p => p.IdeaRatings)
+            .Include(p => p.IdeaTags)
+            .FirstOrDefaultAsync(p => p.Id == id));
+    }
+
     public override async Task<IEnumerable<ProjectIdea>> GetAllAsync(bool noTracking = true)
     {
         return (

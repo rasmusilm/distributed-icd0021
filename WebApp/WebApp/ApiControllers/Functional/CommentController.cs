@@ -33,7 +33,7 @@ namespace WebApp.ApiControllers.Functional
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetComment(Guid id)
         {
-            var comment = await _context.Comments.FindAsync(id);
+            var comment = await _bll.Comments.FirstOrDefaultAsync(id);
 
             if (comment == null)
             {
@@ -48,16 +48,16 @@ namespace WebApp.ApiControllers.Functional
         [HttpPut("{id}")]
         public async Task<IActionResult> PutComment(Guid id, Comment comment)
         {
-            if (id != comment.Id)
+            if (id != comment.Id || comment.UserId != User.GetUserId())
             {
                 return BadRequest();
             }
 
-            _context.Entry(comment).State = EntityState.Modified;
+            _bll.Comments.Update(comment);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _bll.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -79,8 +79,8 @@ namespace WebApp.ApiControllers.Functional
         [HttpPost]
         public async Task<ActionResult<Comment>> PostComment(Comment comment)
         {
-            _context.Comments.Add(comment);
-            await _context.SaveChangesAsync();
+            _bll.Comments.Add(comment);
+            await _bll.SaveChangesAsync();
 
             return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
         }
@@ -89,21 +89,21 @@ namespace WebApp.ApiControllers.Functional
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComment(Guid id)
         {
-            var comment = await _context.Comments.FindAsync(id);
+            var comment = await _bll.Comments.FirstOrDefaultAsync(id);
             if (comment == null)
             {
                 return NotFound();
             }
 
-            _context.Comments.Remove(comment);
-            await _context.SaveChangesAsync();
+            _bll.Comments.Remove(comment);
+            await _bll.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool CommentExists(Guid id)
         {
-            return _context.Comments.Any(e => e.Id == id);
+            return _bll.Comments.Exists(id);
         }
     }
 }

@@ -15,6 +15,12 @@ public class CommentRepository : BaseEntityRepository<DAL.DTO.Comment, App.Domai
     public async Task<IEnumerable<Comment>> GetAllByUser(Guid userId)
     {
         var query = CreateQuery(true);
-        return (await query.Where(a => a.UserId == userId).ToListAsync()).Select(x => Mapper.Map(x)!);
+        return (await query.Where(a => a.UserId == userId).Include(c => c.CommentRatings).ToListAsync()).Select(x => Mapper.Map(x)!);
+    }
+
+    public async Task<IEnumerable<Comment>> GetAllOnPost(Guid postId)
+    {
+        var query = CreateQuery(true);
+        return (await query.Where(a => a.ProjectIdeaId == postId).Include(c => c.CommentRatings).ToListAsync()).Select(x => Mapper.Map(x)!);
     }
 }

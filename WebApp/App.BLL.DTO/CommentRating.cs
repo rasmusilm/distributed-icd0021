@@ -16,6 +16,5 @@ public class CommentRating : DomainEntityId
 
     [Display( ResourceType = typeof(App.Resourses.App.Domain.CommentRating), Name = nameof(App.Resourses.App.Domain.CommentRating.Commentid))]
     public Guid CommentId { get; set; }
-    [Display( ResourceType = typeof(App.Resourses.App.Domain.CommentRating), Name = nameof(App.Resourses.App.Domain.CommentRating.Comment))]
-    public Comment? Comment { get; set; }
+    
 }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using App.Domain;
 using App.DAL.EF;
+using Helpers.WebApp;
 using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Areas.Admin.Controllers
@@ -69,6 +70,7 @@ namespace WebApp.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 comment.Id = Guid.NewGuid();
+                comment.UserId = User.GetUserId();
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
