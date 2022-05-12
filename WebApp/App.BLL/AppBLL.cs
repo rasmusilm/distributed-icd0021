@@ -1,4 +1,5 @@
-﻿using App.BLL.Mappers;
+﻿using App.BLL.DTO;
+using App.BLL.Mappers;
 using App.BLL.Services;
 using App.Contracts.BLL;
 using App.Contracts.BLL.Services;
@@ -48,8 +49,13 @@ public class AppBLL : BaseBll<IAppUnitOfWork>, IAppBLL
 
     public ITagService Tags => _tagService ??= new TagService(UnitOfWork.Tags, new TagMapper(_mapper));
 
-    private ICommentService _comments;
+    private ICommentService? _comments;
 
     public ICommentService Comments =>
         _comments ??= new CommentService(UnitOfWork.Comments, new CommentMapper(_mapper));
+
+    private ICommentRatingService? _commentRatings;
+
+    public ICommentRatingService CommentRatings => _commentRatings ??=
+        new CommentRatingService(UnitOfWork.CommentRatings, new CommentRatingMapper(_mapper));
 }
