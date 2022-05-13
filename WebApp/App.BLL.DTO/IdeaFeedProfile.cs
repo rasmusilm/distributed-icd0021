@@ -15,4 +15,8 @@ public class IdeaFeedProfile : DomainEntityId
     public User? User { get; set; }
 
     public ICollection<IdeaInfeed>? IdeaInfeeds { get; set; } = default!;
+    
+    public ICollection<FeedTag>? FeedTags { get; set; } = default!;
+    
+    public ICollection<Guid> TagIds { get; set; } = new List<Guid>();
 }

@@ -14,6 +14,8 @@ public class IdeaFeedProfile : DomainEntityId
     public Guid UserId { get; set; }
     [Display( ResourceType = typeof(App.Resourses.App.Domain.IdeaFeedProfile), Name = nameof(App.Resourses.App.Domain.IdeaFeedProfile.User))]
     public User? User { get; set; }
+    
+    public ICollection<FeedTag>? FeedTags { get; set; } = default!;
 
     public ICollection<IdeaInfeed>? IdeaInfeeds { get; set; } = default!;
 }

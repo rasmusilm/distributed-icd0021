@@ -14,4 +14,5 @@ public interface IProjectIdeaRepositoryCustom<TEntity>
 {
     Task<IEnumerable<TEntity>> GetAllByUser(Guid userId);
     Task<IEnumerable<TEntity>> GetAllWithTag(Guid tagId);
+    Task<IEnumerable<TEntity>> GetAllFromFeed(List<Guid> tagIds);
 }

@@ -57,6 +57,27 @@ public class ProjectIdeaService : BaseEntityService<App.BLL.DTO.ProjectIdea, App
 
     public async Task<IEnumerable<ProjectIdea>> GetAllWithTag(Guid tagId)
     {
-        return (await Repository.GetAllWithTag(tagId)).Select(x => Mapper.Map(x)!);
+        var posts = (await Repository.GetAllWithTag(tagId)).Select(x => Mapper.Map(x)!).ToList();
+        posts.Sort((idea, projectIdea) => idea.PostedAt.CompareTo(projectIdea));
+        return posts;
+    }
+
+    public async Task<IEnumerable<ProjectIdea>> GetAllFromFeed(List<Guid> tagIds)
+    {
+        var posts = new List<ProjectIdea>();
+        foreach (var tagId in tagIds)
+        {
+            var postsWithTag = (await Repository.GetAllWithTag(tagId)).Select(x => Mapper.Map(x)!).Select(p =>
+            {
+                if (!posts.Contains(p))
+                {
+                    posts.Add(p);
+                }
+
+                return p;
+            });
+        }
+        posts.Sort((idea, projectIdea) => idea.PostedAt.CompareTo(projectIdea));
+        return posts;
     }
 }

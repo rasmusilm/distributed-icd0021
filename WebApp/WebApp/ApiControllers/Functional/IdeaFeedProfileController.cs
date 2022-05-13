@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebApp.ApiControllers.Admin
+namespace WebApp.ApiControllers.Functional
 {
-    [Route("api/Admin/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(Roles = "admin, user", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class IdeaFeedProfileController : ControllerBase
     {
         private readonly IAppBLL _bll;
