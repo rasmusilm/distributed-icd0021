@@ -26,6 +26,9 @@ namespace WebApp.ApiControllers.Functional
         public async Task<IEnumerable<ProjectIdea>> GetProjectIdeas(Guid id)
         {
             var ideaFeedProfile = await _bll.IdeaFeedProfiles.FirstOrDefaultAsync(id);
+            Console.WriteLine(ideaFeedProfile!.Id);
+            Console.WriteLine(ideaFeedProfile.FeedTags!.Count);
+            Console.WriteLine(ideaFeedProfile.TagIds.Count);
 
             return await _bll.ProjectIdeas.GetAllFromFeed(ideaFeedProfile!.TagIds.ToList());
         }

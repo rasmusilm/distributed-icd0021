@@ -33,6 +33,8 @@ namespace WebApp.ApiControllers.Functional
         public async Task<ActionResult<IdeaFeedProfile>> GetIdeaFeedProfile(Guid id)
         {
             var ideaFeedProfile = await _bll.IdeaFeedProfiles.FirstOrDefaultAsync(id);
+            Console.WriteLine("Owner:" + ideaFeedProfile.UserId);
+            Console.WriteLine("User:" + User.GetUserId());
 
             if (ideaFeedProfile == null || ideaFeedProfile.UserId != User.GetUserId())
             {

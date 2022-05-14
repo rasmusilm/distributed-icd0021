@@ -72,6 +72,7 @@ public class AccountController : ControllerBase
             _configuration["JWT:Issuer"],
             DateTime.Now.AddMinutes(_configuration.GetValue<int>("JWT:ExpireInMinutes"))
         );
+        // Console.WriteLine(_configuration.GetValue<int>("JWT:ExpireInMinutes"));
         
         // generate RefreshToken
         var refreshToken = new RefreshToken();

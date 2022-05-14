@@ -18,18 +18,9 @@ public class ProjectIdeaService : BaseEntityService<App.BLL.DTO.ProjectIdea, App
     {
         return (await Repository.GetAllAsync()).Select(x => Mapper.Map(x)!).Select(post =>
         {
-            if (post.IdeaRatings!.Count > 0)
-            {
-                post.Rating = post.IdeaRatings!.Average(r => r.Rating);
-            }
-
-            if (post.IdeaTags!.Count > 0)
-            {
-                foreach (var tag in post.IdeaTags)
-                {
-                    post.TagIds.Add(tag.TagId);
-                }
-            }
+            CalculateGrade(post);
+                    
+            ExtractTagIds(post);
         
             return post;
         });
@@ -40,10 +31,7 @@ public class ProjectIdeaService : BaseEntityService<App.BLL.DTO.ProjectIdea, App
         var post = Mapper.Map(await Repository.FirstOrDefaultAsync(id, noTracking));
         if (post is not null )
         {
-            if (post.IdeaRatings!.Count > 0)
-            {
-                post.Rating = post.IdeaRatings!.Average(r => r.Rating);
-            }
+            CalculateGrade(post);
         }
         
 
@@ -67,17 +55,40 @@ public class ProjectIdeaService : BaseEntityService<App.BLL.DTO.ProjectIdea, App
         var posts = new List<ProjectIdea>();
         foreach (var tagId in tagIds)
         {
-            var postsWithTag = (await Repository.GetAllWithTag(tagId)).Select(x => Mapper.Map(x)!).Select(p =>
+            var postsWithTag = (await Repository.GetAllWithTag(tagId)).Select(x => Mapper.Map(x)!);
+            foreach (var post in postsWithTag)
             {
-                if (!posts.Contains(p))
+                if (!posts.Contains(post))
                 {
-                    posts.Add(p);
+                    
+                    CalculateGrade(post);
+                    
+                    ExtractTagIds(post);
+                    
+                    posts.Add(post);
                 }
-
-                return p;
-            });
+            }
         }
-        posts.Sort((idea, projectIdea) => idea.PostedAt.CompareTo(projectIdea));
+        posts.Sort((idea, projectIdea) => idea.PostedAt.CompareTo(projectIdea.PostedAt));
         return posts;
+    }
+
+    private static void CalculateGrade(ProjectIdea post)
+    {
+        if (post.IdeaRatings!.Count > 0)
+        {
+            post.Rating = post.IdeaRatings!.Average(r => r.Rating);
+        }
+    }
+    
+    private static void ExtractTagIds(ProjectIdea post)
+    {
+        if (post.IdeaTags!.Count > 0)
+        {
+            foreach (var tag in post.IdeaTags)
+            {
+                post.TagIds.Add(tag.TagId);
+            }
+        }
     }
 }

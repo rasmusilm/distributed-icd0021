@@ -15,7 +15,9 @@ public class IdeaFeedService : BaseEntityService<IdeaFeedProfile, DAL.DTO.IdeaFe
 
     public new async Task<IdeaFeedProfile?> FirstOrDefaultAsync(Guid id, bool noTracking = true)
     {
+        Console.WriteLine(id);
         var profile = Mapper.Map(await Repository.FirstOrDefaultAsync(id, noTracking));
+        Console.WriteLine(profile is null);
         profile!.FeedTags!.ForEach(t => profile.TagIds.Add(t.TagId));
         return profile;
     }

@@ -19,12 +19,17 @@ public class IdeaFeedProfileRepository: BaseEntityRepository<DAL.DTO.IdeaFeedPro
     public new async Task<DAL.DTO.IdeaFeedProfile?> FirstOrDefaultAsync(Guid id, bool noTracking = true)
     {
         var query = CreateQuery(true);
-        return Mapper.Map(query.Include("FeedTag").FirstOrDefault(a => a.Id == id));
+        return Mapper.Map(query
+            .Include(f => f.FeedTags)
+            .FirstOrDefault(a => a.Id == id));
     }
 
     public async Task<IEnumerable<DAL.DTO.IdeaFeedProfile>> GetAllByUser(Guid userId)
     {
         var query = CreateQuery(true);
-        return (await query.Where(a => a.UserId == userId).ToListAsync()).Select(x => Mapper.Map(x)!);
+        return (await query
+            .Where(a => a.UserId == userId)
+            .ToListAsync())
+            .Select(x => Mapper.Map(x)!);
     }
 }

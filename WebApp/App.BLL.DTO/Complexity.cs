@@ -9,6 +9,4 @@ public class Complexity : DomainEntityId
     [Display( ResourceType = typeof(App.Resourses.App.Domain.Complexity), Name = nameof(App.Resourses.App.Domain.Complexity.Name))]
     [Column(TypeName = "jsonb")]
     public LangStr Name { get; set; } = new ();
-
-    
 }

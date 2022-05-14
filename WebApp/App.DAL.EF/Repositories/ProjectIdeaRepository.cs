@@ -24,6 +24,8 @@ public class ProjectIdeaRepository : BaseEntityRepository<ProjectIdea, App.Domai
             .Include(p => p.User)
             .Include(p => p.IdeaRatings)
             .Include(p => p.IdeaTags)
+            .Include(p => p.Complexity)
+            .Include(p => p.Difficulty)
             .FirstOrDefaultAsync(p => p.Id == id));
     }
 
@@ -34,6 +36,8 @@ public class ProjectIdeaRepository : BaseEntityRepository<ProjectIdea, App.Domai
                     .Include(p => p.User)
                     .Include(p => p.IdeaRatings)
                     .Include(p => p.IdeaTags)
+                    .Include(p => p.Complexity)
+                    .Include(p => p.Difficulty)
                     .ToListAsync()
             )
             .Select(x => Mapper.Map(x)!);
@@ -50,6 +54,14 @@ public class ProjectIdeaRepository : BaseEntityRepository<ProjectIdea, App.Domai
     public async Task<IEnumerable<ProjectIdea>> GetAllWithTag(Guid tagId)
     {
         var query = CreateQuery(true);
-        return (await query.Where(a => a.IdeaTags!.Any(a => a.TagId == tagId)).ToListAsync()).Select(x => Mapper.Map(x)!);
+        return (await query
+            .Include(t => t.IdeaTags)
+            .Include(t => t.IdeaRatings)
+            .Include(t => t.User)
+            .Include(p => p.Complexity)
+            .Include(p => p.Difficulty)
+            .Where(a => a.IdeaTags!.Any(a => a.TagId == tagId))
+            .ToListAsync())
+            .Select(x => Mapper.Map(x)!);
     }
 }
