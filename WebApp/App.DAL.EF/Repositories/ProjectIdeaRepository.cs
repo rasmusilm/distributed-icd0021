@@ -1,4 +1,5 @@
 using App.Contracts.DAL;
+using App.Contracts.DAL.Repositories;
 using App.DAL.DTO;
 using App.Domain.Identity;
 using Base.Contracts.Base;

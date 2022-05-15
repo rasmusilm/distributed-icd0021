@@ -58,4 +58,9 @@ public class AppBLL : BaseBll<IAppUnitOfWork>, IAppBLL
 
     public ICommentRatingService CommentRatings => _commentRatings ??=
         new CommentRatingService(UnitOfWork.CommentRatings, new CommentRatingMapper(_mapper));
+
+    private IComplexityService? _complexity;
+
+    public IComplexityService Complexity =>
+        _complexity ??= new ComplexityService(UnitOfWork.Complexity, new ComplexityMapper(_mapper));
 }

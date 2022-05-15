@@ -11,4 +11,5 @@ public interface IAppBLL : IBLL
     ITagService Tags { get; }
     ICommentService Comments { get; }
     ICommentRatingService CommentRatings { get; }
+    IComplexityService Complexity { get; }
 }

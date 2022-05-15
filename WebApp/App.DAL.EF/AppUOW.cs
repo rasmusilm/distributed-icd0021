@@ -1,4 +1,5 @@
 using App.Contracts.DAL;
+using App.Contracts.DAL.Repositories;
 using App.DAL.DTO;
 using App.DAL.EF.Mappers;
 using App.DAl.EF.Repositories;
@@ -44,4 +45,9 @@ public class AppUOW: BaseUOW<ApplicationDbContext>, IAppUnitOfWork
 
     public ICommentRatingRepository CommentRatings =>
         _commentRating ??= new CommentRatingRepository(UOWDbContext, new CommentRatingMapper(_mapper));
+
+    private IComplexityRepository _complexity;
+
+    public IComplexityRepository Complexity =>
+        _complexity ??= new ComplexityRepository(UOWDbContext, new ComplexityMapper(_mapper));
 }
