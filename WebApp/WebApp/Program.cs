@@ -8,9 +8,12 @@ using App.Domain.Identity;
 using Helpers.WebApp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using WebApp;
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -38,7 +41,8 @@ builder.Services.AddScoped<IAppBLL, AppBLL>();
 
 builder.Services.AddAutoMapper(
     typeof(App.DAL.EF.AutomapperConfig),
-    typeof(App.BLL.AutomapperConfig)
+    typeof(App.BLL.AutomapperConfig),
+    typeof(MapperConfig)
 );
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -66,6 +70,22 @@ builder.Services
             ClockSkew = TimeSpan.Zero // remove delay of token when expire
         };
     });
+
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddApiVersioning(
+    options =>
+    {
+        options.ReportApiVersions = true;
+        // in case of no explicit version
+        options.DefaultApiVersion = new ApiVersion(1, 0);
+    });
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddVersionedApiExplorer( options => options.GroupNameFormat = "'v'VVV" );
+builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllersWithViews(
     options => { options.ModelBinderProviders.Insert(0, new CustomLangStrBinderProvider()); }
@@ -124,6 +144,22 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>(); 
+    foreach ( var description in provider.ApiVersionDescriptions )
+    {
+        options.SwaggerEndpoint(
+            $"/swagger/{description.GroupName}/swagger.json",
+            description.GroupName.ToUpperInvariant() 
+        );
+    }
+    // serve from root
+    // options.RoutePrefix = string.Empty;
+});
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

@@ -1,6 +1,7 @@
 #nullable disable
-using App.BLL.DTO;
+using App.Public.DTO.v1;
 using App.Contracts.BLL;
+using AutoMapper;
 using Helpers.WebApp;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -9,16 +10,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.ApiControllers.Functional
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize(Roles = "admin,user", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ComplexityController : ControllerBase
     {
         private readonly IAppBLL _bll;
+        private readonly IMapper _mapper;
 
-        public ComplexityController(IAppBLL bll)
+        public ComplexityController(IAppBLL bll, IMapper mapper)
         {
             _bll = bll;
+            _mapper = mapper;
         }
 
         // GET: api/IdeaRating
@@ -26,7 +30,7 @@ namespace WebApp.ApiControllers.Functional
         public async Task<IEnumerable<Complexity>> GetComplexities()
         {
             // return await _bll.Tags.GetAllAsync();
-            return await _bll.Complexity.GetAllAsync();
+            return (await _bll.Complexity.GetAllAsync()).Select(comp => _mapper.Map<Complexity>(comp));
         }
 
         // GET: api/IdeaRating/5
@@ -40,7 +44,7 @@ namespace WebApp.ApiControllers.Functional
                 return NotFound();
             }
             
-            return complexity;
+            return _mapper.Map<Complexity>(complexity);
         }
     }
 }

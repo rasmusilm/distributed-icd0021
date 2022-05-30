@@ -1,6 +1,7 @@
 #nullable disable
-using App.BLL.DTO;
+using App.Public.DTO.v1;
 using App.Contracts.BLL;
+using AutoMapper;
 using Helpers.WebApp;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -9,23 +10,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.ApiControllers.Functional
 {
-    [Route("/api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize(Roles = "admin,user", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ProjectIdeaController : ControllerBase
     {
         private readonly IAppBLL _bll;
+        private readonly IMapper _mapper;
 
-        public ProjectIdeaController(IAppBLL bll)
+        public ProjectIdeaController(IAppBLL bll, IMapper mapper)
         {
             _bll = bll;
+            _mapper = mapper;
         }
 
         // GET: api/ProjectIdea
         [HttpGet]
         public async Task<IEnumerable<ProjectIdea>> GetProjectIdeas()
         {
-            return await _bll.ProjectIdeas.GetAllAsync();
+            return (await _bll.ProjectIdeas.GetAllAsync()).Select(x =>
+                _mapper.Map<App.BLL.DTO.ProjectIdea, ProjectIdea>(x));
         }
 
         // GET: api/ProjectIdea/5
@@ -40,7 +45,7 @@ namespace WebApp.ApiControllers.Functional
                 return NotFound();
             }
 
-            return projectIdea;
+            return _mapper.Map<App.BLL.DTO.ProjectIdea, ProjectIdea>(projectIdea);
         }
 
         // PUT: api/ProjectIdea/5
@@ -53,7 +58,7 @@ namespace WebApp.ApiControllers.Functional
                 return BadRequest();
             }
 
-            _bll.ProjectIdeas.Update(projectIdea);
+            _bll.ProjectIdeas.Update(_mapper.Map<ProjectIdea, App.BLL.DTO.ProjectIdea>(projectIdea));
 
             try
             {
@@ -79,7 +84,7 @@ namespace WebApp.ApiControllers.Functional
         [HttpPost]
         public async Task<ActionResult<ProjectIdea>> PostProjectIdea(ProjectIdea projectIdea)
         {
-            _bll.ProjectIdeas.Add(projectIdea);
+            _bll.ProjectIdeas.Add(_mapper.Map<ProjectIdea, App.BLL.DTO.ProjectIdea>(projectIdea));
             await _bll.SaveChangesAsync();
 
             return CreatedAtAction("GetProjectIdea", new { id = projectIdea.Id }, projectIdea);

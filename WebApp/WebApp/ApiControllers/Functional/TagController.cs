@@ -1,7 +1,7 @@
 #nullable disable
-using App.BLL.DTO;
+using App.Public.DTO.v1;
 using App.Contracts.BLL;
-using Helpers.WebApp;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,23 +9,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.ApiControllers.Functional
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize(Roles = "admin,user", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class TagController : ControllerBase
     {
         private readonly IAppBLL _bll;
+        private readonly IMapper _mapper;
 
-        public TagController(IAppBLL bll)
+        public TagController(IAppBLL bll, IMapper mapper)
         {
             _bll = bll;
+            _mapper = mapper;
         }
 
         // GET: api/IdeaRating
         [HttpGet]
         public async Task<IEnumerable<Tag>> GetTags()
         {
-            return await _bll.Tags.GetAllAsync();
+            return (await _bll.Tags.GetAllAsync()).Select(tag => 
+                _mapper.Map<Tag>(tag));
         }
 
         // GET: api/IdeaRating/5
@@ -39,7 +43,7 @@ namespace WebApp.ApiControllers.Functional
                 return NotFound();
             }
 
-            return tag;
+            return _mapper.Map<Tag>(tag);
         }
 
         // PUT: api/IdeaRating/5
@@ -52,7 +56,7 @@ namespace WebApp.ApiControllers.Functional
                 return BadRequest();
             }
 
-            _bll.Tags.Update(tag);
+            _bll.Tags.Update(_mapper.Map<App.BLL.DTO.Tag>(tag));
 
             try
             {
@@ -78,7 +82,7 @@ namespace WebApp.ApiControllers.Functional
         [HttpPost]
         public async Task<ActionResult<Tag>> PostTag(Tag tag)
         {
-            _bll.Tags.Add(tag);
+            _bll.Tags.Add(_mapper.Map<App.BLL.DTO.Tag>(tag));
             await _bll.SaveChangesAsync();
 
             return CreatedAtAction("GetTag", new { id = tag.Id }, tag);

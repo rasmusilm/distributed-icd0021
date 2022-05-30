@@ -1,28 +1,32 @@
 #nullable disable
 using App.Contracts.BLL;
 using App.DAL.EF;
-using App.BLL.DTO;
+using App.Public.DTO.v1;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.ApiControllers.Functional
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class CommentRatingController : ControllerBase
     {
         private readonly IAppBLL _bll;
+        private readonly IMapper _mapper;
 
-        public CommentRatingController(IAppBLL bll)
+        public CommentRatingController(IAppBLL bll, IMapper mapper)
         {
             _bll = bll;
+            _mapper = mapper;
         }
 
         // GET: api/CommentRating
         [HttpGet]
         public async Task<IEnumerable<CommentRating>> GetCommentRatings()
         {
-            return await _bll.CommentRatings.GetAllAsync();
+            return (await _bll.CommentRatings.GetAllAsync()).Select(rating => _mapper.Map<CommentRating>(rating));
         }
 
         // GET: api/CommentRating/5
@@ -36,7 +40,7 @@ namespace WebApp.ApiControllers.Functional
                 return NotFound();
             }
 
-            return commentRating;
+            return _mapper.Map<CommentRating>(commentRating);
         }
 
         // PUT: api/CommentRating/5
@@ -49,7 +53,7 @@ namespace WebApp.ApiControllers.Functional
                 return BadRequest();
             }
 
-            _bll.CommentRatings.Update(commentRating);
+            _bll.CommentRatings.Update(_mapper.Map<App.BLL.DTO.CommentRating>(commentRating));
 
             try
             {
@@ -75,7 +79,7 @@ namespace WebApp.ApiControllers.Functional
         [HttpPost]
         public async Task<ActionResult<CommentRating>> PostCommentRating(CommentRating commentRating)
         {
-            _bll.CommentRatings.Add(commentRating);
+            _bll.CommentRatings.Add(_mapper.Map<App.BLL.DTO.CommentRating>(commentRating));
             await _bll.SaveChangesAsync();
 
             return CreatedAtAction("GetCommentRating", new { id = commentRating.Id }, commentRating);

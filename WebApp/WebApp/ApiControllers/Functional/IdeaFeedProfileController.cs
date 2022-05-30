@@ -1,6 +1,7 @@
 #nullable disable
-using App.BLL.DTO;
+using App.Public.DTO.v1;
 using App.Contracts.BLL;
+using AutoMapper;
 using Helpers.WebApp;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -9,23 +10,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.ApiControllers.Functional
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize(Roles = "admin, user", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class IdeaFeedProfileController : ControllerBase
     {
         private readonly IAppBLL _bll;
+        private readonly IMapper _mapper;
 
-        public IdeaFeedProfileController(IAppBLL bll)
+        public IdeaFeedProfileController(IAppBLL bll, IMapper mapper)
         {
             _bll = bll;
+            _mapper = mapper;
         }
 
         // GET: api/IdeaFeedProfile
         [HttpGet]
         public async Task<IEnumerable<IdeaFeedProfile>> GetIdeaFeedProfiles()
         {
-            return await _bll.IdeaFeedProfiles.GetAllByUser(User.GetUserId());
+            return (await _bll.IdeaFeedProfiles.GetAllByUser(User.GetUserId())).Select(profile => 
+                _mapper.Map<IdeaFeedProfile>(profile));
         }
 
         // GET: api/IdeaFeedProfile/5
@@ -41,7 +46,7 @@ namespace WebApp.ApiControllers.Functional
                 return NotFound();
             }
 
-            return ideaFeedProfile;
+            return  _mapper.Map<IdeaFeedProfile>(ideaFeedProfile);
         }
 
         // PUT: api/IdeaFeedProfile/5
@@ -54,7 +59,7 @@ namespace WebApp.ApiControllers.Functional
                 return BadRequest();
             }
 
-            _bll.IdeaFeedProfiles.Update(ideaFeedProfile);
+            _bll.IdeaFeedProfiles.Update(_mapper.Map<App.BLL.DTO.IdeaFeedProfile>(ideaFeedProfile));
 
             try
             {
@@ -80,7 +85,7 @@ namespace WebApp.ApiControllers.Functional
         [HttpPost]
         public async Task<ActionResult<IdeaFeedProfile>> PostIdeaFeedProfile(IdeaFeedProfile ideaFeedProfile)
         {
-            _bll.IdeaFeedProfiles.Add(ideaFeedProfile);
+            _bll.IdeaFeedProfiles.Add(_mapper.Map<App.BLL.DTO.IdeaFeedProfile>(ideaFeedProfile));
             await _bll.SaveChangesAsync();
 
             return CreatedAtAction("GetIdeaFeedProfile", new { id = ideaFeedProfile.Id }, ideaFeedProfile);

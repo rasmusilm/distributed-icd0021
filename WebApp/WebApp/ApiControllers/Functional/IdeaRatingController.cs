@@ -1,6 +1,7 @@
 #nullable disable
-using App.BLL.DTO;
+using App.Public.DTO.v1;
 using App.Contracts.BLL;
+using AutoMapper;
 using Helpers.WebApp;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -9,23 +10,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.ApiControllers.Functional
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize(Roles = "admin,user", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class IdeaRatingController : ControllerBase
     {
         private readonly IAppBLL _bll;
+        private readonly IMapper _mapper;
 
-        public IdeaRatingController(IAppBLL bll)
+        public IdeaRatingController(IAppBLL bll, IMapper mapper)
         {
             _bll = bll;
+            _mapper = mapper;
         }
 
         // GET: api/IdeaRating
         [HttpGet]
         public async Task<IEnumerable<IdeaRating>> GetIdeaRatings()
         {
-            return await _bll.IdeaRatings.GetAllAsync();
+            return (await _bll.IdeaRatings.GetAllAsync()).Select(rating => 
+                _mapper.Map<IdeaRating>(rating));;
         }
 
         // GET: api/IdeaRating/5
@@ -39,7 +44,7 @@ namespace WebApp.ApiControllers.Functional
                 return NotFound();
             }
 
-            return ideaRating;
+            return _mapper.Map<IdeaRating>(ideaRating);
         }
 
         // PUT: api/IdeaRating/5
@@ -52,7 +57,7 @@ namespace WebApp.ApiControllers.Functional
                 return BadRequest();
             }
 
-            _bll.IdeaRatings.Update(ideaRating);
+            _bll.IdeaRatings.Update(_mapper.Map<App.BLL.DTO.IdeaRating>(ideaRating));
 
             try
             {
@@ -82,7 +87,7 @@ namespace WebApp.ApiControllers.Functional
             Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
                               "\n\n\n\n\n\nAAAAAAAAAAAAAAAAAAAAAAAAa");
             Console.WriteLine(ideaRating.Rating + "|" + ideaRating.UserId + "==" + User.GetUserId() + "|" + ideaRating.ProjectIdeaId);
-            _bll.IdeaRatings.Add(ideaRating);
+            _bll.IdeaRatings.Add(_mapper.Map<App.BLL.DTO.IdeaRating>(ideaRating));
             await _bll.SaveChangesAsync();
 
             return CreatedAtAction("GetIdeaRating", new { id = ideaRating.Id }, ideaRating);

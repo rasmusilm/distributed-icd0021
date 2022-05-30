@@ -13,7 +13,8 @@ using WebApp.DTO.Identity;
 
 namespace WebApp.ApiControllers.Identity;
 
-[Route("api/identity/[controller]/[action]")]
+[ApiVersion( "1.0" )]
+[Route("api/v{version:apiVersion}/identity/[controller]/[action]")]
 [ApiController]
 public class AccountController : ControllerBase
 {
