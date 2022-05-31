@@ -27,6 +27,7 @@ builder.Services.AddCors(options =>
         policy  =>
         {
             policy.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+            policy.WithOrigins("https://rasmusilm.github.io").AllowAnyHeader().AllowAnyMethod();
         });
 });
 
