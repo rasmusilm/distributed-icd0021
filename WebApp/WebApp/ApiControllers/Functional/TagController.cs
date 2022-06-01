@@ -56,10 +56,5 @@ namespace WebApp.ApiControllers.Functional
 
             return CreatedAtAction("GetTag", new { id = tag.Id }, tag);
         }
-
-        private bool TagExists(Guid id)
-        {
-            return _bll.IdeaRatings.Exists(id);
-        }
     }
 }
