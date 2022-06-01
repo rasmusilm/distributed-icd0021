@@ -46,37 +46,6 @@ namespace WebApp.ApiControllers.Functional
             return _mapper.Map<Tag>(tag);
         }
 
-        // PUT: api/IdeaRating/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTag(Guid id, Tag tag)
-        {
-            if (id != tag.Id)
-            {
-                return BadRequest();
-            }
-
-            _bll.Tags.Update(_mapper.Map<App.BLL.DTO.Tag>(tag));
-
-            try
-            {
-                await _bll.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TagExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/IdeaRating
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]

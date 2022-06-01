@@ -32,7 +32,7 @@ builder.Services.AddCors(options =>
 });
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("NpgsqlConnection");
+var connectionString = builder.Configuration.GetConnectionString("NpgsqlConnectionLocal");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));

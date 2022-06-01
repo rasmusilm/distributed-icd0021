@@ -1,4 +1,5 @@
-﻿using App.Domain;
+﻿using App.Base;
+using App.Domain;
 using App.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -41,6 +42,37 @@ public class ApplicationDbContext : IdentityDbContext<User, UserRole, Guid>
     {
         base.OnModelCreating(builder);
         
+        if (Database.ProviderName == "Microsoft.EntityFrameworkCore.InMemory")
+        {
+            builder
+                .Entity<Complexity>()
+                .Property(e => e.Name)
+                .HasConversion(
+                    v => SerialiseLangStr(v),
+                    v => DeserializeLangStr(v));
+            builder
+                .Entity<Difficulty>()
+                .Property(e => e.Name)
+                .HasConversion(
+                    v => SerialiseLangStr(v),
+                    v => DeserializeLangStr(v));
+            builder
+                .Entity<Tag>()
+                .Property(e => e.Tagname)
+                .HasConversion(
+                    v => SerialiseLangStr(v),
+                    v => DeserializeLangStr(v));
+            builder
+                .Entity<TestItem>()
+                .Property(e => e.Name)
+                .HasConversion(
+                    v => SerialiseLangStr(v),
+                    v => DeserializeLangStr(v));
+            builder
+                .Entity<LangStr>()
+                .HasNoKey();
+        }
+
         
         // Remove cascade delete
         foreach (var relationship in builder.Model
@@ -51,6 +83,12 @@ public class ApplicationDbContext : IdentityDbContext<User, UserRole, Guid>
         }
         
     }
+    
+    private static string SerialiseLangStr(LangStr lStr) => System.Text.Json.JsonSerializer.Serialize(lStr);
+
+    private static LangStr DeserializeLangStr(string jsonStr) =>
+        System.Text.Json.JsonSerializer.Deserialize<LangStr>(jsonStr) ?? new LangStr();
+
 
     public override int SaveChanges()
     {
