@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using App.Base;
 using App.Domain.Enums;
 using App.Domain.Identity;
+using Base.Domain;
 using User = App.DAL.DTO.Identity.User;
 
 namespace App.DAL.DTO;

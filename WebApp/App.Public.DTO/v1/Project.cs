@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using App.Base;
 using App.Public.DTO.v1.Identity;
+using Base.Domain;
 
 namespace App.Public.DTO.v1;
 

@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using App.Base;
 using App.Domain.Identity;
 using App.Resourses;
+using Base.Domain;
 
 namespace App.Domain;
 

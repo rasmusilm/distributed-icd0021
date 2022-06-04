@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using App.Base;
+using Base.Domain;
 
 namespace App.BLL.DTO;
 

@@ -1,6 +1,6 @@
 using Base.Contracts.Domain;
 
-namespace App.Base;
+namespace Base.Domain;
 
 public class DomainEntityId : IDomainEntityId
 {

@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using App.Base;
+using Base.Domain;
 
 namespace App.Domain;
 

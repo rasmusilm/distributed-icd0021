@@ -1,4 +1,5 @@
 using App.Base;
+using Base.Domain;
 
 namespace WebApp.DTO;
 

@@ -1,4 +1,3 @@
-using App.DAl.EF;
 using App.DAL.EF;
 using App.Domain;
 using App.Domain.Identity;

@@ -16,11 +16,11 @@ using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using WebApp;
 
-var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
 var builder = WebApplication.CreateBuilder(args);
 
 // cors
+var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
@@ -32,7 +32,7 @@ builder.Services.AddCors(options =>
 });
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("NpgsqlConnectionLocal");
+var connectionString = builder.Configuration.GetConnectionString("NpgsqlConnection");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
